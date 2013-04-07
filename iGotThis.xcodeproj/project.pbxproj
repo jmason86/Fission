@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		E499DAC8170645600050FC5E /* AddNewPersonViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E499DAC7170645600050FC5E /* AddNewPersonViewController.m */; };
 		E49A922B1705350400E1409A /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E49A922A1705350400E1409A /* UIKit.framework */; };
 		E49A922D1705350400E1409A /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E49A922C1705350400E1409A /* Foundation.framework */; };
 		E49A922F1705350400E1409A /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E49A922E1705350400E1409A /* CoreGraphics.framework */; };
@@ -38,6 +39,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		E499DAC6170645600050FC5E /* AddNewPersonViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddNewPersonViewController.h; sourceTree = "<group>"; };
+		E499DAC7170645600050FC5E /* AddNewPersonViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddNewPersonViewController.m; sourceTree = "<group>"; };
 		E49A92271705350400E1409A /* iGotThis.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iGotThis.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E49A922A1705350400E1409A /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		E49A922C1705350400E1409A /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -122,12 +125,14 @@
 		E49A92301705350400E1409A /* iGotThis */ = {
 			isa = PBXGroup;
 			children = (
-				E49A92391705350400E1409A /* AppDelegate.h */,
-				E49A923A1705350400E1409A /* AppDelegate.m */,
 				E49A92421705350400E1409A /* MainStoryboard_iPhone.storyboard */,
 				E49A92451705350400E1409A /* MainStoryboard_iPad.storyboard */,
+				E49A92391705350400E1409A /* AppDelegate.h */,
+				E49A923A1705350400E1409A /* AppDelegate.m */,
 				E49A92481705350400E1409A /* MasterViewController.h */,
 				E49A92491705350400E1409A /* MasterViewController.m */,
+				E499DAC6170645600050FC5E /* AddNewPersonViewController.h */,
+				E499DAC7170645600050FC5E /* AddNewPersonViewController.m */,
 				E49A924B1705350400E1409A /* DetailViewController.h */,
 				E49A924C1705350400E1409A /* DetailViewController.m */,
 				E49A92311705350400E1409A /* Supporting Files */,
@@ -283,6 +288,7 @@
 				E49A923B1705350400E1409A /* AppDelegate.m in Sources */,
 				E49A924A1705350400E1409A /* MasterViewController.m in Sources */,
 				E49A924D1705350400E1409A /* DetailViewController.m in Sources */,
+				E499DAC8170645600050FC5E /* AddNewPersonViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -473,6 +479,7 @@
 				E49A92671705350400E1409A /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		E49A92681705350400E1409A /* Build configuration list for PBXNativeTarget "iGotThisTests" */ = {
 			isa = XCConfigurationList;
@@ -481,6 +488,7 @@
 				E49A926A1705350400E1409A /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

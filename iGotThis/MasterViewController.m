@@ -10,12 +10,12 @@
 
 #import "DetailViewController.h"
 
-@interface MasterViewController () {
-    NSMutableArray *_objects;
-}
+@interface MasterViewController ()
 @end
 
 @implementation MasterViewController
+
+@synthesize allPersonNames, allBalances;
 
 - (void)awakeFromNib
 {
@@ -31,10 +31,15 @@
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
     self.navigationItem.leftBarButtonItem = self.editButtonItem;
+    allPersonNames = [NSMutableArray arrayWithObjects:@"Buffalo Bill", @"Donatello", @"Usher", nil];
+    allBalances = [NSMutableArray arrayWithObjects:@"0", @"0", @"0", nil];
 
-    UIBarButtonItem *addButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(insertNewObject:)];
-    self.navigationItem.rightBarButtonItem = addButton;
     self.detailViewController = (DetailViewController *)[[self.splitViewController.viewControllers lastObject] topViewController];
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [self.tableView reloadData];
 }
 
 - (void)didReceiveMemoryWarning
@@ -43,17 +48,23 @@
     // Dispose of any resources that can be recreated.
 }
 
-- (void)insertNewObject:(id)sender
+#pragma mark - Segues
+
+- (IBAction)addNewPersonDone:(UIStoryboardSegue *)segue
 {
-    if (!_objects) {
-        _objects = [[NSMutableArray alloc] init];
-    }
-    [_objects insertObject:[NSDate date] atIndex:0];
-    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:0];
-    [self.tableView insertRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+    NSLog(@"Popping back to Master view controller!");
+    AddNewPersonViewController *addNewPersonViewController = [segue sourceViewController];
+    UITextField *personNameField = [addNewPersonViewController personNameField];
+    [allPersonNames addObject:personNameField.text];
+    [allBalances addObject:@"0"];
 }
 
-#pragma mark - Table View
+- (IBAction)addNewPersonCancel:(UIStoryboardSegue *)segue
+{
+    NSLog(@"Popping back to Master view controller after cancel button clicked.");
+}
+
+#pragma mark - Table View Data Source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
@@ -62,15 +73,18 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return _objects.count;
+    return allPersonNames.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Cell" forIndexPath:indexPath];
-
-    NSDate *object = _objects[indexPath.row];
-    cell.textLabel.text = [object description];
+    
+    NSString *personName = [allPersonNames objectAtIndex:indexPath.row];
+    cell.textLabel.text = personName;
+    NSString *balance = [allBalances objectAtIndex:indexPath.row];
+    cell.detailTextLabel.text = balance;
+    
     return cell;
 }
 
@@ -83,7 +97,7 @@
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (editingStyle == UITableViewCellEditingStyleDelete) {
-        [_objects removeObjectAtIndex:indexPath.row];
+        [allPersonNames removeObjectAtIndex:indexPath.row];
         [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
     } else if (editingStyle == UITableViewCellEditingStyleInsert) {
         // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view.
@@ -106,14 +120,18 @@
 }
 */
 
+#pragma mark - Table View Delegate 
+
+// TODO: Use this gesture to bring the user to an individual's balance sheet
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad) {
+    /* if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad) {
         NSDate *object = _objects[indexPath.row];
         self.detailViewController.detailItem = object;
-    }
+    } */
 }
 
+/*
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
     if ([[segue identifier] isEqualToString:@"showDetail"]) {
@@ -121,6 +139,21 @@
         NSDate *object = _objects[indexPath.row];
         [[segue destinationViewController] setDetailItem:object];
     }
+    
+    if ([[segue identifier] isEqualToString:@"addNewPersonSegue"]) {
+        UINavigationController *navigationController = segue.destinationViewController;
+        //AddNewPersonViewController *addNewPersonViewController = [[navigationController viewControllers] objectAtIndex:0]; // TODO: Verify that this should be at object index 0 always
+        //addNewPersonViewController.delegate = self;
+
+    }
+}
+*/
+
+# pragma mark - Custom Methods
+
+- (IBAction)iPayTapped:(UIButton *)sender {
 }
 
+- (IBAction)uPayTapped:(UIButton *)sender {
+}
 @end

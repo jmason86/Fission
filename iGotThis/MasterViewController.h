@@ -7,11 +7,17 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "AddNewPersonViewController.h"
 
 @class DetailViewController;
 
 @interface MasterViewController : UITableViewController
 
+- (IBAction)iPayTapped:(UIButton *)sender;
+- (IBAction)uPayTapped:(UIButton *)sender;
+
 @property (strong, nonatomic) DetailViewController *detailViewController;
+@property (strong, nonatomic) NSMutableArray *allPersonNames;
+@property (strong, nonatomic) NSMutableArray *allBalances;
 
 @end
