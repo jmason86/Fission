@@ -50,9 +50,26 @@
 
 #pragma mark - Segues
 
+// Going from MasterViewController to Subviews
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    if ([[segue identifier] isEqualToString:@"showDetail"]) {
+        NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
+        NSDate *personName = allPersonNames[indexPath.row];
+        [[segue destinationViewController] setDetailItem:personName];
+    }
+    
+    if ([[segue identifier] isEqualToString:@"addNewPersonSegue"]) {
+        UINavigationController *navigationController = segue.destinationViewController;
+        //AddNewPersonViewController *addNewPersonViewController = [[navigationController viewControllers] objectAtIndex:0]; // TODO: Verify that this should be at object index 0 always
+        //addNewPersonViewController.delegate = self;
+        
+    }
+}
+
+// Returning from Subviews to MasterViewController
 - (IBAction)addNewPersonDone:(UIStoryboardSegue *)segue
 {
-    NSLog(@"Popping back to Master view controller!");
     AddNewPersonViewController *addNewPersonViewController = [segue sourceViewController];
     UITextField *personNameField = [addNewPersonViewController personNameField];
     [allPersonNames addObject:personNameField.text];
@@ -130,24 +147,6 @@
         self.detailViewController.detailItem = object;
     } */
 }
-
-/*
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-{
-    if ([[segue identifier] isEqualToString:@"showDetail"]) {
-        NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
-        NSDate *object = _objects[indexPath.row];
-        [[segue destinationViewController] setDetailItem:object];
-    }
-    
-    if ([[segue identifier] isEqualToString:@"addNewPersonSegue"]) {
-        UINavigationController *navigationController = segue.destinationViewController;
-        //AddNewPersonViewController *addNewPersonViewController = [[navigationController viewControllers] objectAtIndex:0]; // TODO: Verify that this should be at object index 0 always
-        //addNewPersonViewController.delegate = self;
-
-    }
-}
-*/
 
 # pragma mark - Custom Methods
 
