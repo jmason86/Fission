@@ -59,24 +59,24 @@
         [[segue destinationViewController] setDetailItem:personName];
     }
     
-    if ([[segue identifier] isEqualToString:@"addNewPersonSegue"]) {
+    if ([[segue identifier] isEqualToString:@"addNewEventSegue"]) {
         UINavigationController *navigationController = segue.destinationViewController;
-        //AddNewPersonViewController *addNewPersonViewController = [[navigationController viewControllers] objectAtIndex:0]; // TODO: Verify that this should be at object index 0 always
-        //addNewPersonViewController.delegate = self;
+        //AddNewEventViewController *AddNewEventViewController = [[navigationController viewControllers] objectAtIndex:0]; // TODO: Verify that this should be at object index 0 always
+        //AddNewEventViewController.delegate = self;
         
     }
 }
 
 // Returning from Subviews to MasterViewController
-- (IBAction)addNewPersonDone:(UIStoryboardSegue *)segue
+- (IBAction)addNewEventDone:(UIStoryboardSegue *)segue
 {
-    AddNewPersonViewController *addNewPersonViewController = [segue sourceViewController];
-    UITextField *personNameField = [addNewPersonViewController personNameField];
+    AddNewEventViewController *AddNewEventViewController = [segue sourceViewController];
+    UITextField *personNameField = [AddNewEventViewController personNameField];
     [allPersonNames addObject:personNameField.text];
     [allBalances addObject:@"0"];
 }
 
-- (IBAction)addNewPersonCancel:(UIStoryboardSegue *)segue
+- (IBAction)addNewEventCancel:(UIStoryboardSegue *)segue
 {
     NSLog(@"Popping back to Master view controller after cancel button clicked.");
 }

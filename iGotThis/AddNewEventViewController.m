@@ -1,18 +1,18 @@
 //
-//  AddNewPersonViewController.m
+//  AddNewEventViewController.m
 //  iGotThis
 //
 //  Created by James Mason on 3/29/13.
 //  Copyright (c) 2013 Trinary. All rights reserved.
 //
 
-#import "AddNewPersonViewController.h"
+#import "AddNewEventViewController.h"
 
-@interface AddNewPersonViewController ()
+@interface AddNewEventViewController ()
 
 @end
 
-@implementation AddNewPersonViewController
+@implementation AddNewEventViewController
 
 @synthesize personNameField;
 

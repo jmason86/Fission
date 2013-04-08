@@ -93,7 +93,7 @@
                     <navigationItem key="navigationItem" title="iGotThis" id="36">
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="DIB-OC-fSX">
                             <connections>
-                                <segue destination="rf1-MN-pcG" kind="push" identifier="addNewPersonSegue" id="p0K-7p-Egw"/>
+                                <segue destination="rf1-MN-pcG" kind="push" identifier="addNewEventSegue" id="p0K-7p-Egw"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -149,10 +149,10 @@
             </objects>
             <point key="canvasLocation" x="924" y="-587"/>
         </scene>
-        <!--Add New Person View Controller - Add New Person-->
+        <!--Add New Event View Controller - Add New Event-->
         <scene sceneID="MkW-6x-Ibm">
             <objects>
-                <viewController id="rf1-MN-pcG" customClass="AddNewPersonViewController" sceneMemberID="viewController">
+                <viewController id="rf1-MN-pcG" customClass="AddNewEventViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="VpE-6B-Pms">
                         <rect key="frame" x="0.0" y="64" width="320" height="504"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -169,15 +169,15 @@
                             <constraint firstItem="qc4-QC-hsl" firstAttribute="top" secondItem="VpE-6B-Pms" secondAttribute="top" constant="105" id="a23-vn-Jyq"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="Add New Person" id="mpa-3p-xCW">
+                    <navigationItem key="navigationItem" title="Add New Event" id="mpa-3p-xCW">
                         <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="vwI-92-9aJ">
                             <connections>
-                                <segue destination="4xV-zy-9fR" kind="unwind" unwindAction="addNewPersonCancel:" id="vET-ln-Nxs"/>
+                                <segue destination="0dc-GT-cl6" kind="unwind" unwindAction="addNewEventCancel:" id="3sd-SE-c9i"/>
                             </connections>
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" systemItem="done" id="8aE-el-xoS">
                             <connections>
-                                <segue destination="4xV-zy-9fR" kind="unwind" unwindAction="addNewPersonDone:" id="Lof-5J-XV1"/>
+                                <segue destination="0dc-GT-cl6" kind="unwind" unwindAction="addNewEventDone:" id="VVx-7U-ZPG"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -186,17 +186,15 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="vet-qg-S5P" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <exit id="4xV-zy-9fR" userLabel="Exit" sceneMemberID="exit"/>
+                <exit id="0dc-GT-cl6" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="922" y="93"/>
         </scene>
     </scenes>
     <classes>
-        <class className="AddNewPersonViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/AddNewPersonViewController.h"/>
+        <class className="AddNewEventViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/AddNewEventViewController.h"/>
             <relationships>
-                <relationship kind="action" name="cancelButtonClicked:" candidateClass="UIBarButtonItem"/>
-                <relationship kind="action" name="doneButtonClicked:" candidateClass="UIBarButtonItem"/>
                 <relationship kind="outlet" name="personNameField" candidateClass="UITextField"/>
             </relationships>
         </class>
@@ -209,8 +207,8 @@
         <class className="MasterViewController" superclassName="UITableViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/MasterViewController.h"/>
             <relationships>
-                <relationship kind="action" name="addNewPersonCancel:" candidateClass="UIStoryboardSegue"/>
-                <relationship kind="action" name="addNewPersonDone:" candidateClass="UIStoryboardSegue"/>
+                <relationship kind="action" name="addNewEventCancel:" candidateClass="UIStoryboardSegue"/>
+                <relationship kind="action" name="addNewEventDone:" candidateClass="UIStoryboardSegue"/>
                 <relationship kind="action" name="iPayTapped:" candidateClass="UIButton"/>
                 <relationship kind="action" name="uPayTapped:" candidateClass="UIButton"/>
             </relationships>

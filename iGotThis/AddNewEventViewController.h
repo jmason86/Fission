@@ -1,5 +1,5 @@
 //
-//  AddNewPersonViewController.h
+//  AddNewEventViewController.h
 //  iGotThis
 //
 //  Created by James Mason on 3/29/13.
@@ -8,9 +8,9 @@
 
 #import <UIKit/UIKit.h>
 
-@class AddNewPersonViewController;
+@class AddNewEventViewController;
 
-@interface AddNewPersonViewController : UIViewController
+@interface AddNewEventViewController : UIViewController
 
 @property (strong, nonatomic) IBOutlet UITextField *personNameField;
 

@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "AddNewPersonViewController.h"
+#import "AddNewEventViewController.h"
 
 @class DetailViewController;
 
