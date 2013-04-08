@@ -24,7 +24,7 @@
             <objects>
                 <tableViewController storyboardIdentifier="" title="Master" id="12" customClass="MasterViewController" sceneMemberID="viewController">
                     <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="53" sectionHeaderHeight="22" sectionFooterHeight="22" id="13">
-                        <rect key="frame" x="0.0" y="64" width="320" height="504"/>
+                        <rect key="frame" x="0.0" y="64" width="320" height="416"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
@@ -107,7 +107,7 @@
             <objects>
                 <viewController storyboardIdentifier="" title="Detail" id="21" customClass="DetailViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="22">
-                        <rect key="frame" x="0.0" y="64" width="320" height="504"/>
+                        <rect key="frame" x="0.0" y="64" width="320" height="416"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="rgW-yI-bo2">
@@ -154,19 +154,76 @@
             <objects>
                 <viewController id="rf1-MN-pcG" customClass="AddNewEventViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="VpE-6B-Pms">
-                        <rect key="frame" x="0.0" y="64" width="320" height="504"/>
+                        <rect key="frame" x="0.0" y="64" width="320" height="416"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Enter new person's name" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="qc4-QC-hsl">
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Enter person's name" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="qc4-QC-hsl">
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="147" id="BiT-Nc-gl4"/>
+                                    <constraint firstAttribute="height" constant="30" id="UBf-8u-rzs"/>
+                                </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Enter total bill" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Xnw-VJ-12Q">
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="126" id="GNT-s5-t3C"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="c7b-WQ-Crn">
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="161" id="bKa-HR-nUP"/>
+                                </constraints>
+                                <segments>
+                                    <segment title="I Pay"/>
+                                    <segment title="You Pay"/>
+                                </segments>
+                            </segmentedControl>
+                            <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="V0I-yg-ilA"/>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Enter any identifying notes" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="C4r-4n-uGd">
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Total To Be Added To Tab: " lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lVa-WL-ZoP">
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="$" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iJa-Lq-FCT">
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="wio-vS-Vwf">
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="114" id="AH1-DT-7OW"/>
+                                </constraints>
+                            </slider>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="qc4-QC-hsl" firstAttribute="leading" secondItem="VpE-6B-Pms" secondAttribute="leading" constant="20" symbolic="YES" type="default" id="84j-wZ-aP1"/>
-                            <constraint firstAttribute="trailing" secondItem="qc4-QC-hsl" secondAttribute="trailing" constant="20" symbolic="YES" type="default" id="T61-ls-g0D"/>
-                            <constraint firstItem="qc4-QC-hsl" firstAttribute="top" secondItem="VpE-6B-Pms" secondAttribute="top" constant="105" id="a23-vn-Jyq"/>
+                            <constraint firstAttribute="trailing" secondItem="C4r-4n-uGd" secondAttribute="trailing" constant="20" symbolic="YES" type="default" id="2Yi-y3-Wc6"/>
+                            <constraint firstItem="V0I-yg-ilA" firstAttribute="trailing" secondItem="VpE-6B-Pms" secondAttribute="trailing" type="default" id="2jQ-g5-vbf"/>
+                            <constraint firstItem="V0I-yg-ilA" firstAttribute="leading" secondItem="VpE-6B-Pms" secondAttribute="leading" type="default" id="Cge-aG-klx"/>
+                            <constraint firstItem="C4r-4n-uGd" firstAttribute="bottom" secondItem="VpE-6B-Pms" secondAttribute="bottom" type="default" id="DAI-4R-k0d"/>
+                            <constraint firstItem="lVa-WL-ZoP" firstAttribute="leading" secondItem="VpE-6B-Pms" secondAttribute="leading" constant="20" symbolic="YES" type="default" id="GWm-bF-QJ5"/>
+                            <constraint firstItem="lVa-WL-ZoP" firstAttribute="baseline" secondItem="qc4-QC-hsl" secondAttribute="baseline" type="default" id="L1Q-Tp-1aw"/>
+                            <constraint firstItem="wio-vS-Vwf" firstAttribute="leading" secondItem="VpE-6B-Pms" secondAttribute="leading" constant="109" id="PoG-Xl-wCd"/>
+                            <constraint firstAttribute="trailing" secondItem="Xnw-VJ-12Q" secondAttribute="trailing" constant="20" symbolic="YES" type="default" id="QnS-Cp-3Hy"/>
+                            <constraint firstItem="wio-vS-Vwf" firstAttribute="top" secondItem="c7b-WQ-Crn" secondAttribute="bottom" constant="8" symbolic="YES" type="default" id="ayl-9y-NbJ"/>
+                            <constraint firstItem="C4r-4n-uGd" firstAttribute="leading" secondItem="VpE-6B-Pms" secondAttribute="leading" constant="20" symbolic="YES" type="default" id="bSz-60-0Or"/>
+                            <constraint firstItem="iJa-Lq-FCT" firstAttribute="leading" secondItem="lVa-WL-ZoP" secondAttribute="trailing" constant="8" symbolic="YES" type="default" id="bbo-5s-2ey"/>
+                            <constraint firstItem="qc4-QC-hsl" firstAttribute="top" secondItem="VpE-6B-Pms" secondAttribute="top" constant="25" id="c6X-4V-fW3"/>
+                            <constraint firstItem="c7b-WQ-Crn" firstAttribute="top" secondItem="Xnw-VJ-12Q" secondAttribute="bottom" constant="8" symbolic="YES" type="default" id="gJa-jt-D3B"/>
+                            <constraint firstItem="c7b-WQ-Crn" firstAttribute="top" secondItem="qc4-QC-hsl" secondAttribute="bottom" constant="8" symbolic="YES" type="default" id="nLa-WJ-VVC"/>
+                            <constraint firstItem="lVa-WL-ZoP" firstAttribute="top" secondItem="VpE-6B-Pms" secondAttribute="top" constant="136" id="qFu-MB-kAo"/>
+                            <constraint firstItem="iJa-Lq-FCT" firstAttribute="baseline" secondItem="lVa-WL-ZoP" secondAttribute="baseline" type="default" id="vDZ-tX-bXT"/>
+                            <constraint firstItem="Xnw-VJ-12Q" firstAttribute="baseline" secondItem="qc4-QC-hsl" secondAttribute="baseline" type="default" id="wAk-Q6-8a9"/>
+                            <constraint firstItem="qc4-QC-hsl" firstAttribute="leading" secondItem="VpE-6B-Pms" secondAttribute="leading" constant="13" id="wC6-hg-sBd"/>
+                            <constraint firstItem="V0I-yg-ilA" firstAttribute="centerX" secondItem="c7b-WQ-Crn" secondAttribute="centerX" type="default" id="whE-vp-rbb"/>
+                            <constraint firstItem="C4r-4n-uGd" firstAttribute="top" secondItem="V0I-yg-ilA" secondAttribute="bottom" constant="8" symbolic="YES" type="default" id="xNO-QI-Ii8"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Add New Event" id="mpa-3p-xCW">
@@ -182,7 +239,13 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="categoryPicker" destination="V0I-yg-ilA" id="UKs-mx-jSq"/>
+                        <outlet property="iPayYouPaySwitch" destination="c7b-WQ-Crn" id="3Nn-9r-lMC"/>
+                        <outlet property="notesField" destination="C4r-4n-uGd" id="0VU-lm-Pp0"/>
                         <outlet property="personNameField" destination="qc4-QC-hsl" id="ZtT-r1-jWa"/>
+                        <outlet property="splitBillSlider" destination="wio-vS-Vwf" id="twH-ID-aNA"/>
+                        <outlet property="totalBillField" destination="Xnw-VJ-12Q" id="7u1-gV-OEM"/>
+                        <outlet property="totalToBeAddedToTabLabel" destination="iJa-Lq-FCT" id="vtu-fK-aKo"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="vet-qg-S5P" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -223,6 +286,6 @@
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
         <simulatedOrientationMetrics key="orientation"/>
-        <simulatedScreenMetrics key="destination" type="retina4"/>
+        <simulatedScreenMetrics key="destination"/>
     </simulatedMetricsContainer>
 </document>

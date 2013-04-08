@@ -60,10 +60,8 @@
     }
     
     if ([[segue identifier] isEqualToString:@"addNewEventSegue"]) {
-        UINavigationController *navigationController = segue.destinationViewController;
-        //AddNewEventViewController *AddNewEventViewController = [[navigationController viewControllers] objectAtIndex:0]; // TODO: Verify that this should be at object index 0 always
-        //AddNewEventViewController.delegate = self;
-        
+        AddNewEventViewController *addNewEventViewController = segue.destinationViewController;
+        addNewEventViewController.allPersonNames = [NSMutableArray arrayWithArray:allPersonNames];
     }
 }
 

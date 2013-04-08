@@ -126,9 +126,6 @@
 			isa = PBXGroup;
 			children = (
 				E49A92421705350400E1409A /* MainStoryboard_iPhone.storyboard */,
-				E49A92451705350400E1409A /* MainStoryboard_iPad.storyboard */,
-				E49A92391705350400E1409A /* AppDelegate.h */,
-				E49A923A1705350400E1409A /* AppDelegate.m */,
 				E49A92481705350400E1409A /* MasterViewController.h */,
 				E49A92491705350400E1409A /* MasterViewController.m */,
 				E499DAC6170645600050FC5E /* AddNewEventViewController.h */,
@@ -143,6 +140,9 @@
 		E49A92311705350400E1409A /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				E49A92451705350400E1409A /* MainStoryboard_iPad.storyboard */,
+				E49A92391705350400E1409A /* AppDelegate.h */,
+				E49A923A1705350400E1409A /* AppDelegate.m */,
 				E49A92321705350400E1409A /* iGotThis-Info.plist */,
 				E49A92331705350400E1409A /* InfoPlist.strings */,
 				E49A92361705350400E1409A /* main.m */,
