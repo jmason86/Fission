@@ -10,8 +10,12 @@
 
 @class AddNewEventViewController;
 
-@interface AddNewEventViewController : UIViewController
+@interface AddNewEventViewController : UIViewController <UIPickerViewDataSource, UIPickerViewDelegate>
 
+// Input to class
+@property (strong, nonatomic) NSMutableArray *allPersonModels;
+
+// Output determined by user in class 
 @property (strong, nonatomic) IBOutlet UITextField *personNameField;
 @property (strong, nonatomic) IBOutlet UITextField *totalBillField;
 @property (strong, nonatomic) IBOutlet UISegmentedControl *iPayYouPaySwitch;
@@ -19,6 +23,8 @@
 @property (strong, nonatomic) IBOutlet UILabel *totalToBeAddedToTabLabel;
 @property (strong, nonatomic) IBOutlet UIPickerView *categoryPicker;
 @property (strong, nonatomic) IBOutlet UITextField *notesField;
-@property (strong, nonatomic) NSMutableArray *allPersonNames;
+
+- (IBAction)sliderValueDidChange:(UISlider *)sender;
+- (IBAction)iPayYouPaySwitchChanged:(UISegmentedControl *)sender;
 
 @end

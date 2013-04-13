@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "AddNewEventViewController.h"
+#import "PersonModel.h"
 
 @class DetailViewController;
 
@@ -19,5 +20,6 @@
 @property (strong, nonatomic) DetailViewController *detailViewController;
 @property (strong, nonatomic) NSMutableArray *allPersonNames;
 @property (strong, nonatomic) NSMutableArray *allBalances;
+@property (strong, nonatomic) NSMutableArray *allPersonModels;
 
 @end

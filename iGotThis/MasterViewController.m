@@ -7,7 +7,6 @@
 //
 
 #import "MasterViewController.h"
-
 #import "DetailViewController.h"
 
 @interface MasterViewController ()
@@ -15,7 +14,7 @@
 
 @implementation MasterViewController
 
-@synthesize allPersonNames, allBalances;
+@synthesize allPersonNames, allBalances, allPersonModels;
 
 - (void)awakeFromNib
 {
@@ -29,17 +28,29 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-	// Do any additional setup after loading the view, typically from a nib.
     self.navigationItem.leftBarButtonItem = self.editButtonItem;
+    self.detailViewController = (DetailViewController *)[[self.splitViewController.viewControllers lastObject] topViewController];
+    
+    // TODO: Remove the filler here and just instantiate the array
     allPersonNames = [NSMutableArray arrayWithObjects:@"Buffalo Bill", @"Donatello", @"Usher", nil];
     allBalances = [NSMutableArray arrayWithObjects:@"0", @"0", @"0", nil];
-
-    self.detailViewController = (DetailViewController *)[[self.splitViewController.viewControllers lastObject] topViewController];
+    allPersonModels = [[NSMutableArray alloc] init];
 }
 
 - (void)viewWillAppear:(BOOL)animated
 {
     [self.tableView reloadData];
+    
+    // Make allPersonModel contain a bunch of PersonModels with updated properties
+    // TODO: Check if allPersonModel is actually empty whenever this is called since I'm just adding to it
+    for (int i = 0; i < allPersonNames.count; i++) {
+        PersonModel *personModel = [[PersonModel alloc] init];
+        personModel.personName = [allPersonNames objectAtIndex:i];
+        personModel.personBalance = [allBalances objectAtIndex:i];
+        // TODO: Figure out how to add total bills, IOUs, etc
+        [allPersonModels addObject:personModel];
+    }
+
 }
 
 - (void)didReceiveMemoryWarning
@@ -61,17 +72,23 @@
     
     if ([[segue identifier] isEqualToString:@"addNewEventSegue"]) {
         AddNewEventViewController *addNewEventViewController = segue.destinationViewController;
-        addNewEventViewController.allPersonNames = [NSMutableArray arrayWithArray:allPersonNames];
+        addNewEventViewController.allPersonModels = [NSMutableArray arrayWithArray:allPersonModels];
     }
 }
 
 // Returning from Subviews to MasterViewController
 - (IBAction)addNewEventDone:(UIStoryboardSegue *)segue
 {
-    AddNewEventViewController *AddNewEventViewController = [segue sourceViewController];
-    UITextField *personNameField = [AddNewEventViewController personNameField];
+    AddNewEventViewController *addNewEventViewController = [segue sourceViewController];
+    
+    // Get data set for updating table
+    UITextField *personNameField = [addNewEventViewController personNameField];
     [allPersonNames addObject:personNameField.text];
     [allBalances addObject:@"0"];
+    
+    // Update allPersonModel
+    NSMutableArray *updatedAllPersonModels = [addNewEventViewController allPersonModels];
+    allPersonModels = updatedAllPersonModels;
 }
 
 - (IBAction)addNewEventCancel:(UIStoryboardSegue *)segue

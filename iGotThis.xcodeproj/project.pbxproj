@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		E467682B1716764E00B39690 /* PersonModel.m in Sources */ = {isa = PBXBuildFile; fileRef = E467682A1716764E00B39690 /* PersonModel.m */; };
 		E499DAC8170645600050FC5E /* AddNewEventViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E499DAC7170645600050FC5E /* AddNewEventViewController.m */; };
 		E49A922B1705350400E1409A /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E49A922A1705350400E1409A /* UIKit.framework */; };
 		E49A922D1705350400E1409A /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E49A922C1705350400E1409A /* Foundation.framework */; };
@@ -39,6 +40,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		E46768291716764E00B39690 /* PersonModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PersonModel.h; sourceTree = "<group>"; };
+		E467682A1716764E00B39690 /* PersonModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PersonModel.m; sourceTree = "<group>"; };
 		E499DAC6170645600050FC5E /* AddNewEventViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddNewEventViewController.h; sourceTree = "<group>"; };
 		E499DAC7170645600050FC5E /* AddNewEventViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddNewEventViewController.m; sourceTree = "<group>"; };
 		E49A92271705350400E1409A /* iGotThis.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iGotThis.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -132,6 +135,8 @@
 				E499DAC7170645600050FC5E /* AddNewEventViewController.m */,
 				E49A924B1705350400E1409A /* DetailViewController.h */,
 				E49A924C1705350400E1409A /* DetailViewController.m */,
+				E46768291716764E00B39690 /* PersonModel.h */,
+				E467682A1716764E00B39690 /* PersonModel.m */,
 				E49A92311705350400E1409A /* Supporting Files */,
 			);
 			path = iGotThis;
@@ -289,6 +294,7 @@
 				E49A924A1705350400E1409A /* MasterViewController.m in Sources */,
 				E49A924D1705350400E1409A /* DetailViewController.m in Sources */,
 				E499DAC8170645600050FC5E /* AddNewEventViewController.m in Sources */,
+				E467682B1716764E00B39690 /* PersonModel.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

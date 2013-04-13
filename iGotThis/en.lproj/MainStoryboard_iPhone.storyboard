@@ -163,14 +163,17 @@
                                     <constraint firstAttribute="height" constant="30" id="UBf-8u-rzs"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
+                                <textInputTraits key="textInputTraits" returnKeyType="done" enablesReturnKeyAutomatically="YES"/>
+                                <connections>
+                                    <action selector="dismissPersonNameFieldKeyboard:" destination="rf1-MN-pcG" eventType="editingDidEndOnExit" id="CHx-aH-vsi"/>
+                                </connections>
                             </textField>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Enter total bill" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Xnw-VJ-12Q">
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="0.00" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Xnw-VJ-12Q">
                                 <constraints>
                                     <constraint firstAttribute="width" constant="126" id="GNT-s5-t3C"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
+                                <textInputTraits key="textInputTraits" keyboardType="decimalPad" returnKeyType="done"/>
                             </textField>
                             <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="c7b-WQ-Crn">
                                 <constraints>
@@ -180,11 +183,22 @@
                                     <segment title="I Pay"/>
                                     <segment title="You Pay"/>
                                 </segments>
+                                <connections>
+                                    <action selector="iPayYouPaySwitchChanged:" destination="rf1-MN-pcG" eventType="valueChanged" id="9am-X9-e7l"/>
+                                </connections>
                             </segmentedControl>
-                            <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="V0I-yg-ilA"/>
+                            <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="V0I-yg-ilA">
+                                <connections>
+                                    <outlet property="dataSource" destination="rf1-MN-pcG" id="eMP-z1-Ft6"/>
+                                    <outlet property="delegate" destination="rf1-MN-pcG" id="HgK-li-IC0"/>
+                                </connections>
+                            </pickerView>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Enter any identifying notes" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="C4r-4n-uGd">
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
+                                <textInputTraits key="textInputTraits" returnKeyType="done"/>
+                                <connections>
+                                    <action selector="dismissNotesFieldKeyboard:" destination="rf1-MN-pcG" eventType="editingDidEndOnExit" id="BiU-u7-52i"/>
+                                </connections>
                             </textField>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Total To Be Added To Tab: " lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lVa-WL-ZoP">
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -200,15 +214,25 @@
                                 <constraints>
                                     <constraint firstAttribute="width" constant="114" id="AH1-DT-7OW"/>
                                 </constraints>
+                                <connections>
+                                    <action selector="sliderValueDidChange:" destination="rf1-MN-pcG" eventType="valueChanged" id="BhR-fT-9Mp"/>
+                                </connections>
                             </slider>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Total Bill Amount" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Lbx-LG-2Er">
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="C4r-4n-uGd" secondAttribute="trailing" constant="20" symbolic="YES" type="default" id="2Yi-y3-Wc6"/>
                             <constraint firstItem="V0I-yg-ilA" firstAttribute="trailing" secondItem="VpE-6B-Pms" secondAttribute="trailing" type="default" id="2jQ-g5-vbf"/>
+                            <constraint firstItem="Lbx-LG-2Er" firstAttribute="leading" secondItem="Xnw-VJ-12Q" secondAttribute="leading" type="default" id="94V-Uc-j56"/>
                             <constraint firstItem="V0I-yg-ilA" firstAttribute="leading" secondItem="VpE-6B-Pms" secondAttribute="leading" type="default" id="Cge-aG-klx"/>
                             <constraint firstItem="C4r-4n-uGd" firstAttribute="bottom" secondItem="VpE-6B-Pms" secondAttribute="bottom" type="default" id="DAI-4R-k0d"/>
                             <constraint firstItem="lVa-WL-ZoP" firstAttribute="leading" secondItem="VpE-6B-Pms" secondAttribute="leading" constant="20" symbolic="YES" type="default" id="GWm-bF-QJ5"/>
+                            <constraint firstItem="Lbx-LG-2Er" firstAttribute="top" secondItem="VpE-6B-Pms" secondAttribute="top" type="default" id="Hha-EZ-Qax"/>
                             <constraint firstItem="lVa-WL-ZoP" firstAttribute="baseline" secondItem="qc4-QC-hsl" secondAttribute="baseline" type="default" id="L1Q-Tp-1aw"/>
                             <constraint firstItem="wio-vS-Vwf" firstAttribute="leading" secondItem="VpE-6B-Pms" secondAttribute="leading" constant="109" id="PoG-Xl-wCd"/>
                             <constraint firstAttribute="trailing" secondItem="Xnw-VJ-12Q" secondAttribute="trailing" constant="20" symbolic="YES" type="default" id="QnS-Cp-3Hy"/>
@@ -258,7 +282,15 @@
         <class className="AddNewEventViewController" superclassName="UIViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/AddNewEventViewController.h"/>
             <relationships>
+                <relationship kind="action" name="iPayYouPaySwitchChanged:" candidateClass="UISegmentedControl"/>
+                <relationship kind="action" name="sliderValueDidChange:" candidateClass="UISlider"/>
+                <relationship kind="outlet" name="categoryPicker" candidateClass="UIPickerView"/>
+                <relationship kind="outlet" name="iPayYouPaySwitch" candidateClass="UISegmentedControl"/>
+                <relationship kind="outlet" name="notesField" candidateClass="UITextField"/>
                 <relationship kind="outlet" name="personNameField" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="splitBillSlider" candidateClass="UISlider"/>
+                <relationship kind="outlet" name="totalBillField" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="totalToBeAddedToTabLabel" candidateClass="UILabel"/>
             </relationships>
         </class>
         <class className="DetailViewController" superclassName="UIViewController">
