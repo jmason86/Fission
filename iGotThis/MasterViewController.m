@@ -81,6 +81,9 @@
 {
     AddNewEventViewController *addNewEventViewController = [segue sourceViewController];
     
+    // Tell addNewViewController to update it's personModel
+    [addNewEventViewController updatePersonModel];
+    
     // Get data set for updating table
     UITextField *personNameField = [addNewEventViewController personNameField];
     [allPersonNames addObject:personNameField.text];

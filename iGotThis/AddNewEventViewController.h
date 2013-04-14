@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "PersonModel.h"
 
 @class AddNewEventViewController;
 
@@ -26,5 +27,7 @@
 
 - (IBAction)sliderValueDidChange:(UISlider *)sender;
 - (IBAction)iPayYouPaySwitchChanged:(UISegmentedControl *)sender;
+
+- (void)updatePersonModel;
 
 @end

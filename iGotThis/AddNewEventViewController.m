@@ -33,9 +33,19 @@
     categoryChoices = [[NSArray alloc] initWithObjects:@"Restaurant", @"Groceries", @"Movies", @"Bar Tab", @"Miscellaneous", nil];
 }
 
-- (void)viewDidAppear:(BOOL)animated
+- (void)updatePersonModel
 {
-    
+    PersonModel *personModel = [[PersonModel alloc] init];
+    personModel.personName = personNameField.text;
+    personModel.personBalance = [NSNumber numberWithFloat:[totalToBeAddedToTabLabel.text floatValue]];
+    [personModel.allTotalBills addObject:[NSNumber numberWithFloat:[totalBillField.text floatValue]]];
+    [personModel.allIOUs addObject:[NSNumber numberWithFloat:[totalToBeAddedToTabLabel.text floatValue]]];
+    [personModel.allSplitFractions addObject:[NSNumber numberWithFloat:splitBillSlider.value]];
+    [personModel.allWhoPaidIndices addObject:[NSNumber numberWithInteger:iPayYouPaySwitch.selectedSegmentIndex]];
+    [personModel.allCategories addObject:[self pickerView:categoryPicker titleForRow:[categoryPicker selectedRowInComponent:0] forComponent:0]];
+    [personModel.allNotes addObject:notesField.text];
+     
+    [allPersonModels addObject:personModel];
 }
 
 - (void)didReceiveMemoryWarning
