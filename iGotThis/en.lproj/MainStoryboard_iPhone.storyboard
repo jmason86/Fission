@@ -110,40 +110,55 @@
                         <rect key="frame" x="0.0" y="64" width="320" height="416"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="rgW-yI-bo2">
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="416" id="QVW-5I-6Hc"/>
-                                </constraints>
-                                <prototypes>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="Cell" id="gKd-J7-WJK">
-                                        <rect key="frame" x="0.0" y="22" width="320" height="44"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                                            <rect key="frame" x="0.0" y="0.0" width="300" height="43"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                        </view>
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                    </tableViewCell>
-                                </prototypes>
-                            </tableView>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Name owes me &lt;> or I owe Name &lt;>" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="u8z-Gh-8av">
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="rgW-yI-bo2">
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="305" id="2ge-uk-JUv"/>
+                                </constraints>
+                                <prototypes>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="IOUCell" id="gKd-J7-WJK">
+                                        <rect key="frame" x="0.0" y="22" width="320" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                            <rect key="frame" x="0.0" y="0.0" width="300" height="43"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Transaction ID: $Balance" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kCp-k1-dj6">
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                </label>
+                                            </subviews>
+                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        </view>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <constraints>
+                                            <constraint firstItem="kCp-k1-dj6" firstAttribute="top" secondItem="gKd-J7-WJK" secondAttribute="top" constant="11" id="Imx-B5-1Zi"/>
+                                            <constraint firstItem="kCp-k1-dj6" firstAttribute="leading" secondItem="gKd-J7-WJK" secondAttribute="leading" constant="5" id="cBY-7c-4Fd"/>
+                                        </constraints>
+                                    </tableViewCell>
+                                </prototypes>
+                            </tableView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="u8z-Gh-8av" firstAttribute="top" secondItem="22" secondAttribute="top" constant="20" symbolic="YES" type="default" id="8Vp-lZ-pQO"/>
-                            <constraint firstItem="rgW-yI-bo2" firstAttribute="trailing" secondItem="22" secondAttribute="trailing" type="default" id="UcL-bW-0Fi"/>
-                            <constraint firstItem="rgW-yI-bo2" firstAttribute="bottom" secondItem="22" secondAttribute="bottom" type="default" id="dCY-pY-iij"/>
-                            <constraint firstItem="rgW-yI-bo2" firstAttribute="leading" secondItem="22" secondAttribute="leading" type="default" id="f4a-zi-uxf"/>
+                            <constraint firstItem="rgW-yI-bo2" firstAttribute="top" secondItem="22" secondAttribute="top" constant="68" id="5u3-O0-qCA"/>
+                            <constraint firstItem="rgW-yI-bo2" firstAttribute="leading" secondItem="22" secondAttribute="leading" type="default" id="WOD-fr-G5e"/>
                             <constraint firstItem="u8z-Gh-8av" firstAttribute="leading" secondItem="22" secondAttribute="leading" constant="20" symbolic="YES" type="default" id="fDp-gb-MKV"/>
+                            <constraint firstItem="rgW-yI-bo2" firstAttribute="trailing" secondItem="22" secondAttribute="trailing" type="default" id="kIr-pb-Wrh"/>
+                            <constraint firstItem="u8z-Gh-8av" firstAttribute="top" secondItem="22" secondAttribute="top" constant="7" id="koc-Vy-bDF"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Name" id="26"/>
+                    <connections>
+                        <outlet property="totalBalanceLabel" destination="u8z-Gh-8av" id="eec-Sg-K37"/>
+                        <outlet property="transactionsTableView" destination="rgW-yI-bo2" id="jGM-D9-SEh"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="23" sceneMemberID="firstResponder"/>
             </objects>
@@ -278,43 +293,6 @@
             <point key="canvasLocation" x="922" y="93"/>
         </scene>
     </scenes>
-    <classes>
-        <class className="AddNewEventViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/AddNewEventViewController.h"/>
-            <relationships>
-                <relationship kind="action" name="iPayYouPaySwitchChanged:" candidateClass="UISegmentedControl"/>
-                <relationship kind="action" name="sliderValueDidChange:" candidateClass="UISlider"/>
-                <relationship kind="outlet" name="categoryPicker" candidateClass="UIPickerView"/>
-                <relationship kind="outlet" name="iPayYouPaySwitch" candidateClass="UISegmentedControl"/>
-                <relationship kind="outlet" name="notesField" candidateClass="UITextField"/>
-                <relationship kind="outlet" name="personNameField" candidateClass="UITextField"/>
-                <relationship kind="outlet" name="splitBillSlider" candidateClass="UISlider"/>
-                <relationship kind="outlet" name="totalBillField" candidateClass="UITextField"/>
-                <relationship kind="outlet" name="totalToBeAddedToTabLabel" candidateClass="UILabel"/>
-            </relationships>
-        </class>
-        <class className="DetailViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/DetailViewController.h"/>
-            <relationships>
-                <relationship kind="outlet" name="detailDescriptionLabel" candidateClass="UILabel"/>
-            </relationships>
-        </class>
-        <class className="MasterViewController" superclassName="UITableViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/MasterViewController.h"/>
-            <relationships>
-                <relationship kind="action" name="addNewEventCancel:" candidateClass="UIStoryboardSegue"/>
-                <relationship kind="action" name="addNewEventDone:" candidateClass="UIStoryboardSegue"/>
-                <relationship kind="action" name="iPayTapped:" candidateClass="UIButton"/>
-                <relationship kind="action" name="uPayTapped:" candidateClass="UIButton"/>
-            </relationships>
-        </class>
-        <class className="NSLayoutConstraint" superclassName="NSObject">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/NSLayoutConstraint.h"/>
-        </class>
-        <class className="UIStoryboardSegue" superclassName="NSObject">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/UIStoryboardSegue.h"/>
-        </class>
-    </classes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
         <simulatedOrientationMetrics key="orientation"/>

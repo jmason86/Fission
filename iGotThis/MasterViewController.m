@@ -35,14 +35,14 @@
     allPersonNames = [NSMutableArray arrayWithObjects:@"Buffalo Bill", @"Donatello", @"Usher", nil];
     allBalances = [NSMutableArray arrayWithObjects:@"0", @"0", @"0", nil];
     allPersonModels = [[NSMutableArray alloc] init];
+    
+    // On app launch, go to next method
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(initialPersonModelsUpdate) name:UIApplicationDidBecomeActiveNotification object:nil];
 }
 
-- (void)viewWillAppear:(BOOL)animated
+- (void)initialPersonModelsUpdate
 {
-    [self.tableView reloadData];
-    
     // Make allPersonModel contain a bunch of PersonModels with updated properties
-    // TODO: Check if allPersonModel is actually empty whenever this is called since I'm just adding to it
     for (int i = 0; i < allPersonNames.count; i++) {
         PersonModel *personModel = [[PersonModel alloc] init];
         personModel.personName = [allPersonNames objectAtIndex:i];
@@ -50,7 +50,11 @@
         // TODO: Figure out how to add total bills, IOUs, etc
         [allPersonModels addObject:personModel];
     }
+}
 
+- (void)viewWillAppear:(BOOL)animated
+{
+    [self.tableView reloadData];
 }
 
 - (void)didReceiveMemoryWarning
@@ -64,14 +68,16 @@
 // Going from MasterViewController to Subviews
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
+    
     if ([[segue identifier] isEqualToString:@"showDetail"]) {
         NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
-        NSDate *personName = allPersonNames[indexPath.row];
-        [[segue destinationViewController] setDetailItem:personName];
+        DetailViewController *detailViewController = segue.destinationViewController;
+        detailViewController.personModel = [allPersonModels objectAtIndex:indexPath.row];
     }
     
     if ([[segue identifier] isEqualToString:@"addNewEventSegue"]) {
         AddNewEventViewController *addNewEventViewController = segue.destinationViewController;
+        [addNewEventViewController.allPersonModels removeAllObjects];
         addNewEventViewController.allPersonModels = [NSMutableArray arrayWithArray:allPersonModels];
     }
 }
@@ -90,6 +96,7 @@
     [allBalances addObject:@"0"];
     
     // Update allPersonModel
+    [allPersonModels removeAllObjects];
     NSMutableArray *updatedAllPersonModels = [addNewEventViewController allPersonModels];
     allPersonModels = updatedAllPersonModels;
 }

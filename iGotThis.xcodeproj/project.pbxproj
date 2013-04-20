@@ -27,6 +27,8 @@
 		E49A92571705350400E1409A /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E49A922C1705350400E1409A /* Foundation.framework */; };
 		E49A925F1705350400E1409A /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = E49A925D1705350400E1409A /* InfoPlist.strings */; };
 		E49A92621705350400E1409A /* iGotThisTests.m in Sources */ = {isa = PBXBuildFile; fileRef = E49A92611705350400E1409A /* iGotThisTests.m */; };
+		E49B07251720770900CABA73 /* iGotThisIcon_retina.png in Resources */ = {isa = PBXBuildFile; fileRef = E49B07241720770900CABA73 /* iGotThisIcon_retina.png */; };
+		E49B07271720771F00CABA73 /* iGotThisIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = E49B07261720771F00CABA73 /* iGotThisIcon.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -69,6 +71,8 @@
 		E49A925E1705350400E1409A /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		E49A92601705350400E1409A /* iGotThisTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = iGotThisTests.h; sourceTree = "<group>"; };
 		E49A92611705350400E1409A /* iGotThisTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = iGotThisTests.m; sourceTree = "<group>"; };
+		E49B07241720770900CABA73 /* iGotThisIcon_retina.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = iGotThisIcon_retina.png; sourceTree = SOURCE_ROOT; };
+		E49B07261720771F00CABA73 /* iGotThisIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = iGotThisIcon.png; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -145,6 +149,8 @@
 		E49A92311705350400E1409A /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				E49B07261720771F00CABA73 /* iGotThisIcon.png */,
+				E49B07241720770900CABA73 /* iGotThisIcon_retina.png */,
 				E49A92451705350400E1409A /* MainStoryboard_iPad.storyboard */,
 				E49A92391705350400E1409A /* AppDelegate.h */,
 				E49A923A1705350400E1409A /* AppDelegate.m */,
@@ -255,6 +261,8 @@
 				E49A92411705350400E1409A /* Default-568h@2x.png in Resources */,
 				E49A92441705350400E1409A /* MainStoryboard_iPhone.storyboard in Resources */,
 				E49A92471705350400E1409A /* MainStoryboard_iPad.storyboard in Resources */,
+				E49B07251720770900CABA73 /* iGotThisIcon_retina.png in Resources */,
+				E49B07271720771F00CABA73 /* iGotThisIcon.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -417,6 +425,7 @@
 				GCC_PREFIX_HEADER = "iGotThis/iGotThis-Prefix.pch";
 				INFOPLIST_FILE = "iGotThis/iGotThis-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -428,6 +437,7 @@
 				GCC_PREFIX_HEADER = "iGotThis/iGotThis-Prefix.pch";
 				INFOPLIST_FILE = "iGotThis/iGotThis-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;

@@ -7,10 +7,14 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "PersonModel.h"
 
-@interface DetailViewController : UIViewController <UISplitViewControllerDelegate>
+@interface DetailViewController : UIViewController <UITableViewDataSource, UITableViewDelegate>
 
 @property (strong, nonatomic) id detailItem;
 
-@property (weak, nonatomic) IBOutlet UILabel *detailDescriptionLabel;
+@property (strong, nonatomic) IBOutlet UILabel *totalBalanceLabel;
+@property (strong, nonatomic) IBOutlet UITableView *transactionsTableView;
+@property (strong, nonatomic) PersonModel *personModel;
+
 @end

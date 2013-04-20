@@ -35,6 +35,7 @@
 
 - (void)updatePersonModel
 {
+    [self dismissKeyboardAndUpdateValues];
     PersonModel *personModel = [[PersonModel alloc] init];
     personModel.personName = personNameField.text;
     personModel.personBalance = [NSNumber numberWithFloat:[totalToBeAddedToTabLabel.text floatValue]];
@@ -91,6 +92,11 @@
 }
 
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
+{
+    [self dismissKeyboardAndUpdateValues];
+}
+
+- (void)dismissKeyboardAndUpdateValues
 {
     // Dismiss the keyboard
     [personNameField resignFirstResponder];

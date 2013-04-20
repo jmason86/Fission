@@ -9,42 +9,35 @@
 #import "DetailViewController.h"
 
 @interface DetailViewController ()
-@property (strong, nonatomic) UIPopoverController *masterPopoverController;
-- (void)configureView;
 @end
 
 @implementation DetailViewController
 
+@synthesize totalBalanceLabel, personModel, transactionsTableView;
+
 #pragma mark - Managing the detail item
-
-- (void)setDetailItem:(id)newDetailItem
-{
-    if (_detailItem != newDetailItem) {
-        _detailItem = newDetailItem;
-        
-        // Update the view.
-        [self configureView];
-    }
-
-    if (self.masterPopoverController != nil) {
-        [self.masterPopoverController dismissPopoverAnimated:YES];
-    }        
-}
-
-- (void)configureView
-{
-    // Update the user interface for the detail item.
-
-    if (self.detailItem) {
-        self.detailDescriptionLabel.text = [self.detailItem description];
-    }
-}
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-	// Do any additional setup after loading the view, typically from a nib.
-    [self configureView];
+    
+    // Set label at the top of the screen to indicate who owes who money
+    if (personModel.personBalance <= 0) {
+        totalBalanceLabel.text = [NSString stringWithFormat:@"%@%@%@%@", @"You owe ", personModel.personName, @" $", personModel.personBalance];
+    }
+    else {
+        totalBalanceLabel.text = [NSString stringWithFormat:@"%@%@%@", personModel.personName, @" owes you $", personModel.personBalance];
+    }
+    self.navigationController.title = personModel.personName;
+    
+    transactionsTableView.delegate = self;
+    transactionsTableView.dataSource = self;
+    [transactionsTableView reloadData]; // TODO: Find out how to get the table to actually show my data
+}
+
+- (void)viewDidAppear:(BOOL)animated
+{
+    
 }
 
 - (void)didReceiveMemoryWarning
@@ -53,20 +46,51 @@
     // Dispose of any resources that can be recreated.
 }
 
-#pragma mark - Split view
+#pragma mark - Table View Data Source
 
-- (void)splitViewController:(UISplitViewController *)splitController willHideViewController:(UIViewController *)viewController withBarButtonItem:(UIBarButtonItem *)barButtonItem forPopoverController:(UIPopoverController *)popoverController
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    barButtonItem.title = NSLocalizedString(@"Master", @"Master");
-    [self.navigationItem setLeftBarButtonItem:barButtonItem animated:YES];
-    self.masterPopoverController = popoverController;
+    return 1;
 }
 
-- (void)splitViewController:(UISplitViewController *)splitController willShowViewController:(UIViewController *)viewController invalidatingBarButtonItem:(UIBarButtonItem *)barButtonItem
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    // Called when the view is shown again in the split view, invalidating the button and popover controller.
-    [self.navigationItem setLeftBarButtonItem:nil animated:YES];
-    self.masterPopoverController = nil;
+    return personModel.allIOUs.count;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"IOUCell" forIndexPath:indexPath];
+    
+    NSString *category = [personModel.allCategories objectAtIndex:indexPath.row];
+    NSString *note = [personModel.allNotes objectAtIndex:indexPath.row];
+    NSString *categoryAndNote = [[category stringByAppendingString:@":"] stringByAppendingString:note];
+    cell.textLabel.text = categoryAndNote;
+    
+    return cell;
+}
+
+- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    // Return NO if you do not want the specified item to be editable.
+    return YES;
+}
+
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if (editingStyle == UITableViewCellEditingStyleDelete) {
+        [personModel.allIOUs removeObjectAtIndex:indexPath.row];
+        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
+    } else if (editingStyle == UITableViewCellEditingStyleInsert) {
+        // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view.
+    }
+}
+
+#pragma mark - Table View Delegate
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    
 }
 
 @end
