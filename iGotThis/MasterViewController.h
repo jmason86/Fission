@@ -18,8 +18,6 @@
 - (IBAction)uPayTapped:(UIButton *)sender;
 
 @property (strong, nonatomic) DetailViewController *detailViewController;
-@property (strong, nonatomic) NSMutableArray *allPersonNames;
-@property (strong, nonatomic) NSMutableArray *allBalances;
 @property (strong, nonatomic) NSMutableArray *allPersonModels;
 
 @end

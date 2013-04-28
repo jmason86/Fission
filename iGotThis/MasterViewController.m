@@ -14,7 +14,7 @@
 
 @implementation MasterViewController
 
-@synthesize allPersonNames, allBalances, allPersonModels;
+@synthesize allPersonModels;
 
 - (void)awakeFromNib
 {
@@ -31,47 +31,37 @@
     self.navigationItem.leftBarButtonItem = self.editButtonItem;
     self.detailViewController = (DetailViewController *)[[self.splitViewController.viewControllers lastObject] topViewController];
     
-    // TODO: Remove the filler here and just instantiate the array
-    allPersonNames = [NSMutableArray arrayWithObjects:@"Buffalo Bill", @"Donatello", @"Usher", nil];
-    allBalances = [NSMutableArray arrayWithObjects:@"0", @"0", @"0", nil];
-    allPersonModels = [[NSMutableArray alloc] init];
+    // Restore from disk if file has been saved before
+    NSString *saveFilename = [self saveFilename];
+    if ([[NSFileManager defaultManager] fileExistsAtPath:saveFilename]) {
+        NSData *data = [[NSMutableData alloc] initWithContentsOfFile:saveFilename];
+        NSKeyedUnarchiver *unarchiver = [[NSKeyedUnarchiver alloc] initForReadingWithData:data];
+        allPersonModels = [unarchiver decodeObjectForKey:@"allPersonModels"];
+        [unarchiver finishDecoding];
+    }
     
-    // On app launch, go to next method
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(initialPersonModelsUpdate) name:UIApplicationDidBecomeActiveNotification object:nil];
+    // On app terminate or resign active, save data to disk
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(saveData) name:UIApplicationWillResignActiveNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(saveData) name:UIApplicationWillTerminateNotification object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loadData) name:UIApplicationWillEnterForegroundNotification object:nil];
-}
-
-- (void)initialPersonModelsUpdate
-{
-    // Make allPersonModel contain a bunch of PersonModels with updated properties
-    for (int i = 0; i < allPersonNames.count; i++) {
-        PersonModel *personModel = [[PersonModel alloc] init];
-        personModel.personName = [allPersonNames objectAtIndex:i];
-        personModel.personBalance = [allBalances objectAtIndex:i];
-        // TODO: Figure out how to add total bills, IOUs, etc
-        [allPersonModels addObject:personModel];
-    }
 }
 
 - (void)saveData
 {
-    [allPersonModels writeToFile:[self saveFilename] atomically:YES];
-    
-}
-
-- (void)loadData
-{
-    [allPersonModels removeAllObjects];
-    allPersonModels = [NSMutableArray arrayWithContentsOfFile:[self saveFilename]];
+    NSString *saveFilename = [self saveFilename];
+    NSMutableData *data = [[NSMutableData alloc] init];
+    NSKeyedArchiver *archiver = [[NSKeyedArchiver alloc] initForWritingWithMutableData:data];
+    [archiver encodeObject:allPersonModels forKey:@"allPersonModels"];
+    [archiver finishEncoding];
+    BOOL success = [data writeToFile:saveFilename atomically:YES];
+    if (!success) {
+        NSLog(@"Failed to write allPersonModels to disk");
+    }
 }
 
 - (NSString *)saveFilename
 {
-    NSString *filename = [NSString stringWithFormat:@"%@%@", [[NSBundle mainBundle] resourcePath], @"allPersonModels"];
-    NSLog(filename);
-    return filename;
+    NSString *filename = [NSString stringWithFormat:@"%@%@", [[NSBundle mainBundle] resourcePath], @"/allPersonModels.archive"];
+    return filename; //@"/Users/jmason86/Desktop/blatest.archive";
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -112,11 +102,6 @@
     // Tell addNewViewController to update it's personModel
     [addNewEventViewController updatePersonModel];
     
-    // Get data set for updating table
-    UITextField *personNameField = [addNewEventViewController personNameField];
-    [allPersonNames addObject:personNameField.text];
-    [allBalances addObject:@"0"];
-    
     // Update allPersonModel
     [allPersonModels removeAllObjects];
     NSMutableArray *updatedAllPersonModels = [addNewEventViewController allPersonModels];
@@ -137,17 +122,17 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return allPersonNames.count;
+    return allPersonModels.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Cell" forIndexPath:indexPath];
     
-    NSString *personName = [allPersonNames objectAtIndex:indexPath.row];
-    cell.textLabel.text = personName;
-    NSString *balance = [allBalances objectAtIndex:indexPath.row];
-    cell.detailTextLabel.text = balance;
+    NSString *personName = [[allPersonModels objectAtIndex:indexPath.row] personName];
+    NSString *personBalance = [[[allPersonModels objectAtIndex:indexPath.row] personBalance] stringValue];
+    cell.textLabel.text = [NSString stringWithFormat:@"%@%@%@", personName, @":$", personBalance];
+    cell.detailTextLabel.text = personBalance; // TODO: This isn't actually showing up
     
     return cell;
 }
@@ -161,7 +146,7 @@
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (editingStyle == UITableViewCellEditingStyleDelete) {
-        [allPersonNames removeObjectAtIndex:indexPath.row];
+        [allPersonModels removeObjectAtIndex:indexPath.row];
         [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
     } else if (editingStyle == UITableViewCellEditingStyleInsert) {
         // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view.
