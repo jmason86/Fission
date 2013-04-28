@@ -139,7 +139,7 @@
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <constraints>
                                             <constraint firstItem="kCp-k1-dj6" firstAttribute="top" secondItem="gKd-J7-WJK" secondAttribute="top" constant="11" id="Imx-B5-1Zi"/>
-                                            <constraint firstItem="kCp-k1-dj6" firstAttribute="leading" secondItem="gKd-J7-WJK" secondAttribute="leading" constant="5" id="cBY-7c-4Fd"/>
+                                            <constraint firstItem="kCp-k1-dj6" firstAttribute="leading" secondItem="gKd-J7-WJK" secondAttribute="leading" constant="20" type="default" id="np8-UI-xbH"/>
                                         </constraints>
                                     </tableViewCell>
                                 </prototypes>
@@ -293,6 +293,46 @@
             <point key="canvasLocation" x="922" y="93"/>
         </scene>
     </scenes>
+    <classes>
+        <class className="AddNewEventViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/AddNewEventViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="dismissNotesFieldKeyboard:" candidateClass="UITextField"/>
+                <relationship kind="action" name="dismissPersonNameFieldKeyboard:" candidateClass="UITextField"/>
+                <relationship kind="action" name="iPayYouPaySwitchChanged:" candidateClass="UISegmentedControl"/>
+                <relationship kind="action" name="sliderValueDidChange:" candidateClass="UISlider"/>
+                <relationship kind="outlet" name="categoryPicker" candidateClass="UIPickerView"/>
+                <relationship kind="outlet" name="iPayYouPaySwitch" candidateClass="UISegmentedControl"/>
+                <relationship kind="outlet" name="notesField" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="personNameField" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="splitBillSlider" candidateClass="UISlider"/>
+                <relationship kind="outlet" name="totalBillField" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="totalToBeAddedToTabLabel" candidateClass="UILabel"/>
+            </relationships>
+        </class>
+        <class className="DetailViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/DetailViewController.h"/>
+            <relationships>
+                <relationship kind="outlet" name="totalBalanceLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="transactionsTableView" candidateClass="UITableView"/>
+            </relationships>
+        </class>
+        <class className="MasterViewController" superclassName="UITableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/MasterViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="addNewEventCancel:" candidateClass="UIStoryboardSegue"/>
+                <relationship kind="action" name="addNewEventDone:" candidateClass="UIStoryboardSegue"/>
+                <relationship kind="action" name="iPayTapped:" candidateClass="UIButton"/>
+                <relationship kind="action" name="uPayTapped:" candidateClass="UIButton"/>
+            </relationships>
+        </class>
+        <class className="NSLayoutConstraint" superclassName="NSObject">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/NSLayoutConstraint.h"/>
+        </class>
+        <class className="UIStoryboardSegue" superclassName="NSObject">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/UIStoryboardSegue.h"/>
+        </class>
+    </classes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
         <simulatedOrientationMetrics key="orientation"/>

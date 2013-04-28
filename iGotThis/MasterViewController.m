@@ -38,6 +38,9 @@
     
     // On app launch, go to next method
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(initialPersonModelsUpdate) name:UIApplicationDidBecomeActiveNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(saveData) name:UIApplicationWillResignActiveNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(saveData) name:UIApplicationWillTerminateNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loadData) name:UIApplicationWillEnterForegroundNotification object:nil];
 }
 
 - (void)initialPersonModelsUpdate
@@ -50,6 +53,25 @@
         // TODO: Figure out how to add total bills, IOUs, etc
         [allPersonModels addObject:personModel];
     }
+}
+
+- (void)saveData
+{
+    [allPersonModels writeToFile:[self saveFilename] atomically:YES];
+    
+}
+
+- (void)loadData
+{
+    [allPersonModels removeAllObjects];
+    allPersonModels = [NSMutableArray arrayWithContentsOfFile:[self saveFilename]];
+}
+
+- (NSString *)saveFilename
+{
+    NSString *filename = [NSString stringWithFormat:@"%@%@", [[NSBundle mainBundle] resourcePath], @"allPersonModels"];
+    NSLog(filename);
+    return filename;
 }
 
 - (void)viewWillAppear:(BOOL)animated

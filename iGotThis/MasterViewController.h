@@ -12,7 +12,7 @@
 
 @class DetailViewController;
 
-@interface MasterViewController : UITableViewController
+@interface MasterViewController : UITableViewController <UIApplicationDelegate>
 
 - (IBAction)iPayTapped:(UIButton *)sender;
 - (IBAction)uPayTapped:(UIButton *)sender;

@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-@interface PersonModel : NSObject
+@interface PersonModel : NSObject <NSCoding, NSCopying>
 
 @property (strong, nonatomic) NSString *personName;
 @property (strong, nonatomic) NSNumber *personBalance;

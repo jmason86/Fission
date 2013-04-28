@@ -63,8 +63,8 @@
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"IOUCell" forIndexPath:indexPath];
     
     NSString *category = [personModel.allCategories objectAtIndex:indexPath.row];
-    NSString *note = [personModel.allNotes objectAtIndex:indexPath.row];
-    NSString *categoryAndNote = [[category stringByAppendingString:@":"] stringByAppendingString:note];
+    NSString *iou = [[personModel.allIOUs objectAtIndex:indexPath.row] stringValue];
+    NSString *categoryAndNote = [[category stringByAppendingString:@":"] stringByAppendingString:iou];
     cell.textLabel.text = categoryAndNote;
     
     return cell;
