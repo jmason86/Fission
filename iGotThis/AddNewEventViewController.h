@@ -14,7 +14,9 @@
 @interface AddNewEventViewController : UIViewController <UIPickerViewDataSource, UIPickerViewDelegate>
 
 // Input to class
-@property (strong, nonatomic) NSMutableArray *allPersonModels;
+@property (strong, nonatomic) NSMutableArray *allPersonModels; // From MasterViewController
+@property (strong, nonatomic) PersonModel *personModel; // From DetailViewController
+@property (strong, nonatomic) NSNumber *transactionIndex;
 
 // Output determined by user in class 
 @property (strong, nonatomic) IBOutlet UITextField *personNameField;
@@ -28,6 +30,7 @@
 - (IBAction)sliderValueDidChange:(UISlider *)sender;
 - (IBAction)iPayYouPaySwitchChanged:(UISegmentedControl *)sender;
 
+- (void)updateAllPersonModels;
 - (void)updatePersonModel;
 
 @end

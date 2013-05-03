@@ -16,7 +16,7 @@
 
 @implementation AddNewEventViewController
 
-@synthesize personNameField, allPersonModels, totalBillField, iPayYouPaySwitch, splitBillSlider, totalToBeAddedToTabLabel, categoryPicker, notesField;
+@synthesize allPersonModels, personModel, transactionIndex, personNameField, totalBillField, iPayYouPaySwitch, splitBillSlider, totalToBeAddedToTabLabel, categoryPicker, notesField;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -31,12 +31,29 @@
 {
     [super viewDidLoad];
     categoryChoices = [[NSArray alloc] initWithObjects:@"Restaurant", @"Groceries", @"Movies", @"Bar Tab", @"Miscellaneous", nil];
+    categoryPicker.delegate = self;
+    
+    // If coming from MasterViewController then won't have a PersonModel object alloc init'ed, if coming from DetailViewController then will need to autofill all UI
+    if (!personModel) {
+        personModel = [[PersonModel alloc] init];
+    } else {
+        personNameField.text = personModel.personName;
+        totalBillField.text = [[personModel.allTotalBills objectAtIndex:0] stringValue];
+        iPayYouPaySwitch.selectedSegmentIndex = [[personModel.allWhoPaidIndices objectAtIndex:0] intValue];
+        splitBillSlider.value = [[personModel.allSplitFractions objectAtIndex:0] floatValue];
+        totalToBeAddedToTabLabel.text = [[personModel.allIOUs objectAtIndex:0] stringValue];
+        NSInteger selectedRow = [categoryChoices indexOfObject:[personModel.allCategories objectAtIndex:0]];
+        [categoryPicker selectRow:selectedRow inComponent:0 animated:YES];
+        notesField.text = [personModel.allNotes objectAtIndex:0];
+    }
+    
 }
 
-- (void)updatePersonModel
+// If coming from MasterViewController then add new objects, 
+- (void)updateAllPersonModels
 {
     [self dismissKeyboardAndUpdateValues];
-    PersonModel *personModel = [[PersonModel alloc] init];
+    
     personModel.personName = personNameField.text;
     personModel.personBalance = [NSNumber numberWithFloat:[totalToBeAddedToTabLabel.text floatValue]];
     [personModel.allTotalBills addObject:[NSNumber numberWithFloat:[totalBillField.text floatValue]]];
@@ -45,8 +62,22 @@
     [personModel.allWhoPaidIndices addObject:[NSNumber numberWithInteger:iPayYouPaySwitch.selectedSegmentIndex]];
     [personModel.allCategories addObject:[self pickerView:categoryPicker titleForRow:[categoryPicker selectedRowInComponent:0] forComponent:0]];
     [personModel.allNotes addObject:notesField.text];
-     
     [allPersonModels addObject:personModel];
+}
+
+// If coming from DetailViewController then replace objects
+- (void)updatePersonModel
+{
+    
+    personModel.personName = personNameField.text;
+    personModel.personBalance = [NSNumber numberWithFloat:[totalToBeAddedToTabLabel.text floatValue]];
+    [personModel.allTotalBills replaceObjectAtIndex:[transactionIndex integerValue] withObject:[NSNumber numberWithFloat:[totalBillField.text floatValue]]];
+    [personModel.allIOUs replaceObjectAtIndex:[transactionIndex integerValue] withObject:[NSNumber numberWithFloat:[totalToBeAddedToTabLabel.text floatValue]]];
+    [personModel.allSplitFractions replaceObjectAtIndex:[transactionIndex integerValue] withObject:[NSNumber numberWithFloat:splitBillSlider.value]];
+    [personModel.allWhoPaidIndices replaceObjectAtIndex:[transactionIndex integerValue] withObject:[NSNumber numberWithInteger:iPayYouPaySwitch.selectedSegmentIndex]];
+    [personModel.allCategories replaceObjectAtIndex:[transactionIndex integerValue] withObject:[self pickerView:categoryPicker titleForRow:[categoryPicker selectedRowInComponent:0] forComponent:0]];
+    [personModel.allNotes replaceObjectAtIndex:[transactionIndex integerValue] withObject:notesField.text];
+    [allPersonModels replaceObjectAtIndex:[transactionIndex integerValue] withObject:personModel];
 }
 
 - (void)didReceiveMemoryWarning

@@ -61,7 +61,7 @@
 - (NSString *)saveFilename
 {
     NSString *filename = [NSString stringWithFormat:@"%@%@", [[NSBundle mainBundle] resourcePath], @"/allPersonModels.archive"];
-    return filename; //@"/Users/jmason86/Desktop/blatest.archive";
+    return filename; 
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -94,13 +94,29 @@
     }
 }
 
-// Returning from Subviews to MasterViewController
+// Reutrning (unwinding) from DetailViewController to MasterViewController
+- (IBAction)editOldEventDone:(UIStoryboardSegue *)segue
+{
+    DetailViewController *detailViewController = [segue sourceViewController];
+    
+    // Update allPersonModel
+    NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
+    [allPersonModels replaceObjectAtIndex:indexPath.row withObject:detailViewController.personModel];
+}
+
+// Reutrning (unwinding) from DetailViewController to MasterViewController
+- (IBAction)editOldEventCancel:(UIStoryboardSegue *)segue
+{
+    
+}
+
+// Returning (unwinding) from AddNewEventViewController to MasterViewController
 - (IBAction)addNewEventDone:(UIStoryboardSegue *)segue
 {
     AddNewEventViewController *addNewEventViewController = [segue sourceViewController];
     
     // Tell addNewViewController to update it's personModel
-    [addNewEventViewController updatePersonModel];
+    [addNewEventViewController updateAllPersonModels];
     
     // Update allPersonModel
     [allPersonModels removeAllObjects];
@@ -108,9 +124,10 @@
     allPersonModels = updatedAllPersonModels;
 }
 
+// Returning (unwinding) from AddNewEventViewController
 - (IBAction)addNewEventCancel:(UIStoryboardSegue *)segue
 {
-    NSLog(@"Popping back to Master view controller after cancel button clicked.");
+    
 }
 
 #pragma mark - Table View Data Source

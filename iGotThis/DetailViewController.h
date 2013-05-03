@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "PersonModel.h"
+#import "AddNewEventViewController.h"
 
 @interface DetailViewController : UIViewController <UITableViewDataSource, UITableViewDelegate>
 
@@ -15,6 +16,6 @@
 
 @property (strong, nonatomic) IBOutlet UILabel *totalBalanceLabel;
 @property (strong, nonatomic) IBOutlet UITableView *transactionsTableView;
-@property (strong, nonatomic) PersonModel *personModel;
+@property (copy, nonatomic) PersonModel *personModel;
 
 @end

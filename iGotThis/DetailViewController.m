@@ -20,7 +20,10 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
     // Set label at the top of the screen to indicate who owes who money
     if (personModel.personBalance <= 0) {
         totalBalanceLabel.text = [NSString stringWithFormat:@"%@%@%@%@", @"You owe ", personModel.personName, @" $", personModel.personBalance];
@@ -32,18 +35,56 @@
     
     transactionsTableView.delegate = self;
     transactionsTableView.dataSource = self;
-    [transactionsTableView reloadData]; // TODO: Find out how to get the table to actually show my data
+    [transactionsTableView reloadData]; 
 }
 
-- (void)viewDidAppear:(BOOL)animated
+#pragma mark - Segues
+
+// Going from Detail Person View to AddNewEvent view with prepopulated data
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
     
+    if ([[segue identifier] isEqualToString:@"editOldEventSegue"]) {
+
+        
+        // Pass the addNewEventViewController the full personModel
+        AddNewEventViewController *addNewEventViewController = segue.destinationViewController;
+        PersonModel *temporaryPersonModel = [personModel copy]; // Pass a copy instead of pointer to original
+        addNewEventViewController.personModel = temporaryPersonModel;
+        
+        // Get only the event information relevant to the user's selection and modify addNewEventViewController's personModel
+        NSInteger row = [[self.transactionsTableView indexPathForSelectedRow] row];
+        NSMutableArray *totalBill = [NSMutableArray arrayWithObject: [personModel.allTotalBills objectAtIndex:row]];
+        NSMutableArray *iou = [NSMutableArray arrayWithObject:[personModel.allIOUs objectAtIndex:row]];
+        NSMutableArray *splitFraction = [NSMutableArray arrayWithObject:[personModel.allSplitFractions objectAtIndex:row]];
+        NSMutableArray *whoPaidIndex = [NSMutableArray arrayWithObject:[personModel.allWhoPaidIndices objectAtIndex:row]];
+        NSMutableArray *category = [NSMutableArray arrayWithObject:[personModel.allCategories objectAtIndex:row]];
+        NSMutableArray *notes = [NSMutableArray arrayWithObject:[personModel.allNotes objectAtIndex:row]];
+        addNewEventViewController.personModel.allTotalBills = totalBill;
+        addNewEventViewController.personModel.allIOUs = iou;
+        addNewEventViewController.personModel.allSplitFractions = splitFraction;
+        addNewEventViewController.personModel.allWhoPaidIndices = whoPaidIndex;
+        addNewEventViewController.personModel.allCategories = category;
+        addNewEventViewController.personModel.allNotes = notes;
+        addNewEventViewController.transactionIndex = [NSNumber numberWithInteger:row];
+    }
 }
 
-- (void)didReceiveMemoryWarning
+// Returning (unwinding) from Subviews to MasterViewController
+- (IBAction)addNewEventDone:(UIStoryboardSegue *)segue
 {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+    AddNewEventViewController *addNewEventViewController = [segue sourceViewController];
+    
+    // Tell addNewViewController to update it's personModel
+    [addNewEventViewController updatePersonModel];
+    
+    // Update personModel
+    personModel = [addNewEventViewController personModel];
+}
+
+- (IBAction)addNewEventCancel:(UIStoryboardSegue *)segue
+{
+    NSLog(@"Popping back to Master view controller after cancel button clicked.");
 }
 
 #pragma mark - Table View Data Source
