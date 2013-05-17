@@ -146,10 +146,33 @@
 {
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Cell" forIndexPath:indexPath];
     
+    // Obtain values from allPersonModels
     NSString *personName = [[allPersonModels objectAtIndex:indexPath.row] personName];
     NSString *personBalance = [[[allPersonModels objectAtIndex:indexPath.row] personBalance] stringValue];
-    cell.textLabel.text = [NSString stringWithFormat:@"%@%@%@", personName, @":$", personBalance];
-    cell.detailTextLabel.text = personBalance; // TODO: This isn't actually showing up
+    PersonModel *bla = [allPersonModels objectAtIndex:indexPath.row];
+    NSMutableArray *yar = [bla allIOUs];
+    NSNumber *hm = [yar lastObject];
+    NSString *personLatestTransaction = [[[[allPersonModels objectAtIndex:indexPath.row] allIOUs] lastObject] stringValue];
+    
+    // Put values into the UILabels
+    UILabel *nameLabel = (UILabel *)[cell viewWithTag:1];
+    UILabel *latestTransactionLabel = (UILabel *)[cell viewWithTag:2];
+    UILabel *balanceLabel = (UILabel *)[cell viewWithTag:3];
+    nameLabel.text = personName;
+    latestTransactionLabel.text = personLatestTransaction;
+    balanceLabel.text = personBalance;
+    
+    // Determine coloring of text
+    if ([personLatestTransaction floatValue] < 0) {
+        balanceLabel.textColor = [UIColor colorWithRed:0.87 green:0.24 blue:0.22 alpha:1.0];
+    } else {
+        balanceLabel.textColor = [UIColor colorWithRed:0.29 green:0.68 blue:0.24 alpha:1.0];
+    }
+    if ([personBalance floatValue] < 0) {
+        balanceLabel.textColor = [UIColor colorWithRed:0.87 green:0.24 blue:0.22 alpha:1.0];
+    } else {
+        balanceLabel.textColor = [UIColor colorWithRed:0.29 green:0.68 blue:0.24 alpha:1.0];
+    }
     
     return cell;
 }
