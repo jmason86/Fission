@@ -70,9 +70,15 @@
     return copy;
 }
 
+#pragma mark - Person Methods
 
-// Method for adding a new set of values to totalbills, IOUs, splitFractions, whopaidindices, cateogires, and notes, updating to a new balance, for a particular person
-
-// Method for changing an individual value in bills, IOus, splitfractions, whopaidindices, categories, notes
+- (void)totalUpIOUsForBalance
+{
+    float sum = 0.0;
+    for (int i = 0; i < [allIOUs count]; i++) {
+        sum += [[allIOUs objectAtIndex:i] floatValue];
+    }
+    personBalance = [NSNumber numberWithFloat:sum];
+}
 
 @end

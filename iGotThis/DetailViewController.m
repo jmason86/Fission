@@ -13,7 +13,7 @@
 
 @implementation DetailViewController
 
-@synthesize totalBalanceLabel, personModel, transactionsTableView;
+@synthesize personModel, transactionsTableView, themTotalLabel, youTotalLabel, totalLabel;
 
 #pragma mark - Managing the detail item
 
@@ -24,15 +24,36 @@
 
 - (void)viewWillAppear:(BOOL)animated
 {
-    // Set label at the top of the screen to indicate who owes who money
-    if (personModel.personBalance <= 0) {
-        totalBalanceLabel.text = [NSString stringWithFormat:@"%@%@%@%@", @"You owe ", personModel.personName, @" $", personModel.personBalance];
-    }
-    else {
-        totalBalanceLabel.text = [NSString stringWithFormat:@"%@%@%@", personModel.personName, @" owes you $", personModel.personBalance];
-    }
-    self.navigationController.title = personModel.personName;
+    // Put the person's name in the navigation controller
+    self.navigationItem.title = personModel.personName;
     
+    // Total up all them balances and all you balances
+    float themSum = 0.0;
+    float youSum = 0.0;
+    for (int i = 0; i < [personModel.allIOUs count]; i++) {
+        if ([[personModel.allIOUs objectAtIndex:i] floatValue] < 0.0) {
+            themSum += [[personModel.allIOUs objectAtIndex:i] floatValue];
+        } else {
+            youSum += [[personModel.allIOUs objectAtIndex:i] floatValue];
+        }
+    }
+    int themTotal = round(abs(themSum));
+    int youTotal = round(youSum);
+    
+    // Fill in totals on screen
+    themTotalLabel.text = [NSString stringWithFormat:@"%@%i", @"$", themTotal];
+    youTotalLabel.text = [NSString stringWithFormat:@"%@%i", @"$", youTotal];
+    totalLabel.text = [NSString stringWithFormat:@"%@%@", @"$", [NSNumber numberWithInteger:round([personModel.personBalance floatValue])]];
+    
+    // Color the total label (difference) accordingly
+    if ([personModel.personBalance floatValue] > 0) {
+        totalLabel.textColor = [UIColor colorWithRed:0.87 green:0.24 blue:0.22 alpha:1.0];
+    } else {
+        totalLabel.textColor = [UIColor colorWithRed:0.29 green:0.68 blue:0.24 alpha:1.0];
+    }
+
+    
+    // Setup tableview delegage/datasource and reload table
     transactionsTableView.delegate = self;
     transactionsTableView.dataSource = self;
     [transactionsTableView reloadData]; 
@@ -43,30 +64,14 @@
 // Going from Detail Person View to AddNewEvent view with prepopulated data
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
-    
     if ([[segue identifier] isEqualToString:@"editOldEventSegue"]) {
-
-        
         // Pass the addNewEventViewController the full personModel
         AddNewEventViewController *addNewEventViewController = segue.destinationViewController;
-        PersonModel *temporaryPersonModel = [personModel copy]; // Pass a copy instead of pointer to original
-        addNewEventViewController.personModel = temporaryPersonModel;
+        addNewEventViewController.personModel = personModel;
         
         // Get only the event information relevant to the user's selection and modify addNewEventViewController's personModel
         NSInteger row = [[self.transactionsTableView indexPathForSelectedRow] row];
-        NSMutableArray *totalBill = [NSMutableArray arrayWithObject: [personModel.allTotalBills objectAtIndex:row]];
-        NSMutableArray *iou = [NSMutableArray arrayWithObject:[personModel.allIOUs objectAtIndex:row]];
-        NSMutableArray *splitFraction = [NSMutableArray arrayWithObject:[personModel.allSplitFractions objectAtIndex:row]];
-        NSMutableArray *whoPaidIndex = [NSMutableArray arrayWithObject:[personModel.allWhoPaidIndices objectAtIndex:row]];
-        NSMutableArray *category = [NSMutableArray arrayWithObject:[personModel.allCategories objectAtIndex:row]];
-        NSMutableArray *notes = [NSMutableArray arrayWithObject:[personModel.allNotes objectAtIndex:row]];
-        addNewEventViewController.personModel.allTotalBills = totalBill;
-        addNewEventViewController.personModel.allIOUs = iou;
-        addNewEventViewController.personModel.allSplitFractions = splitFraction;
-        addNewEventViewController.personModel.allWhoPaidIndices = whoPaidIndex;
-        addNewEventViewController.personModel.allCategories = category;
-        addNewEventViewController.personModel.allNotes = notes;
-        addNewEventViewController.transactionIndex = [NSNumber numberWithInteger:row];
+        addNewEventViewController.transactionIndex = row;
     }
 }
 
@@ -75,16 +80,13 @@
 {
     AddNewEventViewController *addNewEventViewController = [segue sourceViewController];
     
-    // Tell addNewViewController to update it's personModel
+    // Tell addNewViewController to update the personModel
     [addNewEventViewController updatePersonModel];
-    
-    // Update personModel
-    personModel = [addNewEventViewController personModel];
 }
 
 - (IBAction)addNewEventCancel:(UIStoryboardSegue *)segue
 {
-    NSLog(@"Popping back to Master view controller after cancel button clicked.");
+    
 }
 
 #pragma mark - Table View Data Source
@@ -103,10 +105,27 @@
 {
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"IOUCell" forIndexPath:indexPath];
     
-    NSString *category = [personModel.allCategories objectAtIndex:indexPath.row];
-    NSString *iou = [[personModel.allIOUs objectAtIndex:indexPath.row] stringValue];
-    NSString *categoryAndNote = [[category stringByAppendingString:@":"] stringByAppendingString:iou];
-    cell.textLabel.text = categoryAndNote;
+    // Obtain values from personModel
+    NSString *category = [[personModel allCategories] objectAtIndex:indexPath.row];
+    NSString *notes = [[personModel allNotes] objectAtIndex:indexPath.row];
+    NSNumber *iouNumber = [[personModel allIOUs] objectAtIndex:indexPath.row];
+    NSString *iou = [NSString stringWithFormat:@"%@%@", @"$", [[NSNumber numberWithInteger:round(abs([iouNumber floatValue]))] stringValue]];
+    
+    // Put values into the UILabels
+    UIImageView *categoryImageView = (UIImageView *)[cell viewWithTag:1]; // TODO: Set this to the image corresponding to the category
+    UILabel *categoryLabel = (UILabel *)[cell viewWithTag:2];
+    UILabel *notesLabel = (UILabel *)[cell viewWithTag:3];
+    UILabel *iouLabel = (UILabel *)[cell viewWithTag:4];
+    categoryLabel.text = category;
+    notesLabel.text = notes;
+    iouLabel.text = iou;
+    
+    // Determine coloring of text
+    if ([iouNumber floatValue] < 0) {
+        iouLabel.textColor = [UIColor colorWithRed:0.87 green:0.24 blue:0.22 alpha:1.0];
+    } else {
+        iouLabel.textColor = [UIColor colorWithRed:0.29 green:0.68 blue:0.24 alpha:1.0];
+    }
     
     return cell;
 }

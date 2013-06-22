@@ -14,8 +14,11 @@
 
 @property (strong, nonatomic) id detailItem;
 
-@property (strong, nonatomic) IBOutlet UILabel *totalBalanceLabel;
 @property (strong, nonatomic) IBOutlet UITableView *transactionsTableView;
-@property (copy, nonatomic) PersonModel *personModel;
+@property (strong, nonatomic) PersonModel *personModel;
+@property (strong, nonatomic) IBOutlet UILabel *themTotalLabel;
+@property (strong, nonatomic) IBOutlet UILabel *youTotalLabel;
+@property (strong, nonatomic) IBOutlet UILabel *totalLabel;
+
 
 @end

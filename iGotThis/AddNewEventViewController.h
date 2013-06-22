@@ -16,7 +16,7 @@
 // Input to class
 @property (strong, nonatomic) NSMutableArray *allPersonModels; // From MasterViewController
 @property (strong, nonatomic) PersonModel *personModel; // From DetailViewController
-@property (strong, nonatomic) NSNumber *transactionIndex;
+@property (nonatomic) int transactionIndex;
 @property (strong, nonatomic) IBOutlet UISearchBar *personNameField;
 
 // Output determined by user in class 

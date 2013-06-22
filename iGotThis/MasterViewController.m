@@ -149,9 +149,6 @@
     // Obtain values from allPersonModels
     NSString *personName = [[allPersonModels objectAtIndex:indexPath.row] personName];
     NSString *personBalance = [[[allPersonModels objectAtIndex:indexPath.row] personBalance] stringValue];
-    PersonModel *bla = [allPersonModels objectAtIndex:indexPath.row];
-    NSMutableArray *yar = [bla allIOUs];
-    NSNumber *hm = [yar lastObject];
     NSString *personLatestTransaction = [[[[allPersonModels objectAtIndex:indexPath.row] allIOUs] lastObject] stringValue];
     
     // Put values into the UILabels

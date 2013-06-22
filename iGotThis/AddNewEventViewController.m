@@ -45,30 +45,33 @@
     // If coming from MasterViewController then won't have a PersonModel object alloc init'ed, if coming from DetailViewController then will need to autofill all UI
     if (!personModel) {
         personModel = [[PersonModel alloc] init];
+        
+        // Setup searchable list of names to provide to user
+        personNames = [[NSMutableArray alloc] init];
+        for (int i = 0; i < [allPersonModels count]; i++) {
+            PersonModel *temporaryPerson = [allPersonModels objectAtIndex:i];
+            [personNames addObject:[temporaryPerson personName]];
+        }
+        filteredNames = [NSMutableArray arrayWithArray:personNames]; // Start with all available names
+        isSearching = NO;
+        
+        // Setup filteredNameListTable
+        filteredNameListTable.delegate = self;
+        filteredNameListTable.dataSource = self;
+        indexOfExistingPerson = -1;
+        self.navigationItem.title = @"New Event";
     } else {
-        personNameField.text = personModel.personName;
-        totalBillField.text = [[personModel.allTotalBills objectAtIndex:0] stringValue];
-        iPayYouPaySwitch.selectedSegmentIndex = [[personModel.allWhoPaidIndices objectAtIndex:0] intValue];
-        splitBillSlider.value = [[personModel.allSplitFractions objectAtIndex:0] floatValue];
-        totalToBeAddedToTabLabel.text = [[personModel.allIOUs objectAtIndex:0] stringValue];
-        NSInteger selectedRow = [categoryChoices indexOfObject:[personModel.allCategories objectAtIndex:0]];
+        personNameField.placeholder = personModel.personName;
+        totalBillField.text = [[personModel.allTotalBills objectAtIndex:transactionIndex] stringValue];
+        iPayYouPaySwitch.selectedSegmentIndex = [[personModel.allWhoPaidIndices objectAtIndex:transactionIndex] intValue];
+        splitBillSlider.value = [[personModel.allSplitFractions objectAtIndex:transactionIndex] floatValue];
+        totalToBeAddedToTabLabel.text = [[personModel.allIOUs objectAtIndex:transactionIndex] stringValue];
+        NSInteger selectedRow = [categoryChoices indexOfObject:[personModel.allCategories objectAtIndex:transactionIndex]];
         [categoryPicker selectRow:selectedRow inComponent:0 animated:YES];
-        notesField.text = [personModel.allNotes objectAtIndex:0];
+        notesField.text = [personModel.allNotes objectAtIndex:transactionIndex];
+        filteredNameListTable.userInteractionEnabled = NO;
+        self.navigationItem.title = @"Edit Event";
     }
-    
-    // Setup searchable list of names to provide to user
-    personNames = [[NSMutableArray alloc] init];
-    for (int i = 0; i < [allPersonModels count]; i++) {
-        PersonModel *temporaryPerson = [allPersonModels objectAtIndex:i];
-        [personNames addObject:[temporaryPerson personName]];
-    }
-    filteredNames = [NSMutableArray arrayWithArray:personNames]; // Start with all available names
-    isSearching = NO; 
-    
-    // Setup filteredNameListTable
-    filteredNameListTable.delegate = self;
-    filteredNameListTable.dataSource = self;
-    indexOfExistingPerson = -1;
 }
 
 // If coming from MasterViewController then add new objects, 
@@ -97,18 +100,20 @@
     }
 }
 
-// If coming from DetailViewController then replace objects
+// If going back to DetailViewController then replace objects
 - (void)updatePersonModel
 {
+    [self dismissKeyboardAndUpdateValues];
     personModel.personName = personNameField.placeholder;
-    personModel.personBalance = [NSNumber numberWithFloat:[totalToBeAddedToTabLabel.text floatValue]];
-    [personModel.allTotalBills replaceObjectAtIndex:[transactionIndex integerValue] withObject:[NSNumber numberWithFloat:[totalBillField.text floatValue]]];
-    [personModel.allIOUs replaceObjectAtIndex:[transactionIndex integerValue] withObject:[NSNumber numberWithFloat:[totalToBeAddedToTabLabel.text floatValue]]];
-    [personModel.allSplitFractions replaceObjectAtIndex:[transactionIndex integerValue] withObject:[NSNumber numberWithFloat:splitBillSlider.value]];
-    [personModel.allWhoPaidIndices replaceObjectAtIndex:[transactionIndex integerValue] withObject:[NSNumber numberWithInteger:iPayYouPaySwitch.selectedSegmentIndex]];
-    [personModel.allCategories replaceObjectAtIndex:[transactionIndex integerValue] withObject:[self pickerView:categoryPicker titleForRow:[categoryPicker selectedRowInComponent:0] forComponent:0]];
-    [personModel.allNotes replaceObjectAtIndex:[transactionIndex integerValue] withObject:notesField.text];
-    [allPersonModels replaceObjectAtIndex:[transactionIndex integerValue] withObject:personModel];
+    [personModel totalUpIOUsForBalance];
+    //personModel.personBalance = [NSNumber numberWithFloat:[totalToBeAddedToTabLabel.text floatValue]]; // FIXIT: This should be the sum of allIOUs, not the single value in totalToBeAddedToTabLabel
+    [personModel.allTotalBills replaceObjectAtIndex:transactionIndex withObject:[NSNumber numberWithFloat:[totalBillField.text floatValue]]];
+    [personModel.allIOUs replaceObjectAtIndex:transactionIndex withObject:[NSNumber numberWithFloat:[totalToBeAddedToTabLabel.text floatValue]]];
+    [personModel.allSplitFractions replaceObjectAtIndex:transactionIndex withObject:[NSNumber numberWithFloat:splitBillSlider.value]];
+    [personModel.allWhoPaidIndices replaceObjectAtIndex:transactionIndex withObject:[NSNumber numberWithInteger:iPayYouPaySwitch.selectedSegmentIndex]];
+    [personModel.allCategories replaceObjectAtIndex:transactionIndex withObject:[self pickerView:categoryPicker titleForRow:[categoryPicker selectedRowInComponent:0] forComponent:0]];
+    [personModel.allNotes replaceObjectAtIndex:transactionIndex withObject:notesField.text];
+    //[allPersonModels replaceObjectAtIndex:0 withObject:personModel]; // TODO: Make sure this is working. allPersonModels showed nil on 6/9/2013
 }
 
 - (void)didReceiveMemoryWarning
@@ -214,7 +219,6 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"tempCellID"];
-    //UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier: forIndexPath:indexPath];
     
     NSString *nameForRow;
     if (isSearching && [filteredNames count]) {

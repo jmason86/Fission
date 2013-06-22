@@ -19,4 +19,7 @@
 @property (strong, nonatomic) NSMutableArray *allCategories;
 @property (strong, nonatomic) NSMutableArray *allNotes;
 
+// Methods
+- (void)totalUpIOUsForBalance;
+
 @end
