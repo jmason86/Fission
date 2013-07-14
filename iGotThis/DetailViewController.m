@@ -112,7 +112,29 @@
     NSString *iou = [NSString stringWithFormat:@"%@%@", @"$", [[NSNumber numberWithInteger:round(abs([iouNumber floatValue]))] stringValue]];
     
     // Put values into the UILabels
-    UIImageView *categoryImageView = (UIImageView *)[cell viewWithTag:1]; // TODO: Set this to the image corresponding to the category
+    UIImageView *categoryImageView = (UIImageView *)[cell viewWithTag:1];
+    if ([category isEqualToString:@"Bill"]) {
+        [categoryImageView setImage:[UIImage imageNamed:@"Bill.png"]];
+    } else if ([category isEqualToString:@"Electric"]) {
+        [categoryImageView setImage:[UIImage imageNamed:@"Electric.png"]];
+    } else if ([category isEqualToString:@"Event"]) {
+        [categoryImageView setImage:[UIImage imageNamed:@"Event.png"]];
+    } else if ([category isEqualToString:@"Grocery"]) {
+        [categoryImageView setImage:[UIImage imageNamed:@"Grocery.png"]];
+    } else if ([category isEqualToString:@"Misc"]) {
+        [categoryImageView setImage:[UIImage imageNamed:@"Misc.png"]];
+    } else if ([category isEqualToString:@"Movie"]) {
+        [categoryImageView setImage:[UIImage imageNamed:@"Movie.png"]];
+    } else if ([category isEqualToString:@"Rent"]) {
+        [categoryImageView setImage:[UIImage imageNamed:@"Rent.png"]];
+    } else if ([category isEqualToString:@"Restaurant"]) {
+        [categoryImageView setImage:[UIImage imageNamed:@"Restaurant.png"]];
+    } else if ([category isEqualToString:@"TV"]) {
+        [categoryImageView setImage:[UIImage imageNamed:@"TV.png"]];
+    } else if ([category isEqualToString:@"Water"]) {
+        [categoryImageView setImage:[UIImage imageNamed:@"Water.png"]];
+    }
+    
     UILabel *categoryLabel = (UILabel *)[cell viewWithTag:2];
     UILabel *notesLabel = (UILabel *)[cell viewWithTag:3];
     UILabel *iouLabel = (UILabel *)[cell viewWithTag:4];

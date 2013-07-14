@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <AddressBook/AddressBook.h>
 #import "PersonModel.h"
 
 @class AddNewEventViewController;
@@ -27,9 +28,15 @@
 @property (strong, nonatomic) IBOutlet UIPickerView *categoryPicker;
 @property (strong, nonatomic) IBOutlet UITextField *notesField;
 @property (strong, nonatomic) IBOutlet UITableView *filteredNameListTable;
+@property (strong, nonatomic) IBOutlet UIView *categoryView;
+@property (strong, nonatomic) IBOutlet UIButton *categoryButton;
+@property (strong, nonatomic) IBOutlet UILabel *meSplitValueLabel;
+@property (strong, nonatomic) IBOutlet UILabel *themSplitValueLabel;
+@property (strong, nonatomic) IBOutlet UILabel *percentSplitLabel;
 
 - (IBAction)sliderValueDidChange:(UISlider *)sender;
 - (IBAction)iPayYouPaySwitchChanged:(UISegmentedControl *)sender;
+- (IBAction)categoryButtonClicked:(UIButton *)sender;
 
 - (void)updateAllPersonModels;
 - (void)updatePersonModel;

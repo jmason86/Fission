@@ -23,7 +23,7 @@
     BOOL isSearching;
 }
 
-@synthesize allPersonModels, personModel, transactionIndex, personNameField, totalBillField, iPayYouPaySwitch, splitBillSlider, totalToBeAddedToTabLabel, categoryPicker, notesField, filteredNameListTable;
+@synthesize allPersonModels, personModel, transactionIndex, personNameField, totalBillField, iPayYouPaySwitch, splitBillSlider, totalToBeAddedToTabLabel, categoryPicker, notesField, filteredNameListTable, categoryView, categoryButton, percentSplitLabel, meSplitValueLabel, themSplitValueLabel;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -39,8 +39,9 @@
     [super viewDidLoad];
     
     // Prepare pre-defined category choices
-    categoryChoices = [[NSArray alloc] initWithObjects:@"Restaurant", @"Groceries", @"Movies", @"Bar Tab", @"Miscellaneous", nil];
+    categoryChoices = [[NSArray alloc] initWithObjects:@"Restaurant", @"Bill", @"Electric", @"Event", @"Grocery", @"Misc", @"Movie", @"Rent", @"TV", @"Water", nil];
     categoryPicker.delegate = self;
+    categoryView.hidden = YES;
     
     // If coming from MasterViewController then won't have a PersonModel object alloc init'ed, if coming from DetailViewController then will need to autofill all UI
     if (!personModel) {
@@ -52,6 +53,7 @@
             PersonModel *temporaryPerson = [allPersonModels objectAtIndex:i];
             [personNames addObject:[temporaryPerson personName]];
         }
+        [self addContactsFromAddressBook];
         filteredNames = [NSMutableArray arrayWithArray:personNames]; // Start with all available names
         isSearching = NO;
         
@@ -72,15 +74,20 @@
         filteredNameListTable.userInteractionEnabled = NO;
         self.navigationItem.title = @"Edit Event";
     }
+    
+    // Customize the look of the slider
+    UIImage *sliderThumb = [UIImage imageNamed:@"UISlider_triangle.png"];
+    [splitBillSlider setThumbImage:sliderThumb forState:UIControlStateNormal];
+    [splitBillSlider setThumbImage:sliderThumb forState:UIControlStateHighlighted];
 }
 
-// If coming from MasterViewController then add new objects, 
+// If coming from MasterViewController then add new objects
 - (void)updateAllPersonModels
 {
     [self dismissKeyboardAndUpdateValues];
     
     personModel.personName = personNameField.placeholder;
-    [personModel.allTotalBills addObject:[NSNumber numberWithFloat:[totalBillField.text floatValue]]];
+    [personModel.allTotalBills addObject:[NSNumber numberWithFloat:[[totalBillField.text substringFromIndex:1] floatValue]]];
     [personModel.allIOUs addObject:[NSNumber numberWithFloat:[totalToBeAddedToTabLabel.text floatValue]]];
     [personModel.allSplitFractions addObject:[NSNumber numberWithFloat:splitBillSlider.value]];
     [personModel.allWhoPaidIndices addObject:[NSNumber numberWithInteger:iPayYouPaySwitch.selectedSegmentIndex]];
@@ -107,7 +114,7 @@
     personModel.personName = personNameField.placeholder;
     [personModel totalUpIOUsForBalance];
     //personModel.personBalance = [NSNumber numberWithFloat:[totalToBeAddedToTabLabel.text floatValue]]; // FIXIT: This should be the sum of allIOUs, not the single value in totalToBeAddedToTabLabel
-    [personModel.allTotalBills replaceObjectAtIndex:transactionIndex withObject:[NSNumber numberWithFloat:[totalBillField.text floatValue]]];
+    [personModel.allTotalBills replaceObjectAtIndex:transactionIndex withObject:[NSNumber numberWithFloat:[[totalBillField.text substringFromIndex:1] floatValue]]];
     [personModel.allIOUs replaceObjectAtIndex:transactionIndex withObject:[NSNumber numberWithFloat:[totalToBeAddedToTabLabel.text floatValue]]];
     [personModel.allSplitFractions replaceObjectAtIndex:transactionIndex withObject:[NSNumber numberWithFloat:splitBillSlider.value]];
     [personModel.allWhoPaidIndices replaceObjectAtIndex:transactionIndex withObject:[NSNumber numberWithInteger:iPayYouPaySwitch.selectedSegmentIndex]];
@@ -124,7 +131,7 @@
 
 - (IBAction)sliderValueDidChange:(UISlider *)sender
 {
-    float totalBillValue = [totalBillField.text floatValue];
+    float totalBillValue = [[totalBillField.text substringFromIndex:1] floatValue];
     float totalToBeAddedToTabValue = totalBillValue * sender.value;
     NSInteger iPayYouPay = iPayYouPaySwitch.selectedSegmentIndex;
     if (iPayYouPay == 0) {
@@ -133,11 +140,24 @@
     else {
         totalToBeAddedToTabLabel.text = [NSString stringWithFormat:@"%.2f", (totalToBeAddedToTabValue * -1)];
     }
+    
+    // Update the labels
+    float sliderValue = sender.value;
+    percentSplitLabel.text = [NSString stringWithFormat:@"%.0f%@", sliderValue * 100, @"%"];
+    themSplitValueLabel.text = [NSString stringWithFormat:@"%@%.2f", @"$", totalToBeAddedToTabValue];
+    meSplitValueLabel.text = [NSString stringWithFormat:@"%@%.2f", @"$", totalBillValue - totalToBeAddedToTabValue];
+    
+    // Reposition the numbers below
+    /*CGRect sliderFrame = splitBillSlider.frame;
+    percentSplitLabel.center = CGPointMake(sliderFrame.origin.x - sliderFrame.size.width/2.0 + sliderFrame.size.width * sliderValue + 150, percentSplitLabel.center.y);
+    themSplitValueLabel.center = CGPointMake(percentSplitLabel.center.x + percentSplitLabel.frame.size.width + 10, percentSplitLabel.center.y);
+    meSplitValueLabel.center = CGPointMake(percentSplitLabel.center.x - percentSplitLabel.frame.size.width, percentSplitLabel.center.y);
+    */
 }
 
 - (IBAction)iPayYouPaySwitchChanged:(UISegmentedControl *)sender
 {
-    float totalBillValue = [totalBillField.text floatValue];
+    float totalBillValue = [[totalBillField.text substringFromIndex:1] floatValue];
     float totalToBeAddedToTabValue = totalBillValue * splitBillSlider.value;
     NSInteger iPayYouPay = sender.selectedSegmentIndex;
     if (iPayYouPay == 0) {
@@ -148,14 +168,18 @@
     }
 }
 
-- (IBAction)dismissPersonNameFieldKeyboard:(UITextField *)sender
-{
-    [personNameField resignFirstResponder];
+- (IBAction)categoryButtonClicked:(UIButton *)sender {
+    if (categoryView.hidden) {
+        categoryView.hidden = NO;
+    } else {
+        categoryView.hidden = YES;
+        [categoryButton setTitle:[self pickerView:categoryPicker titleForRow:[categoryPicker selectedRowInComponent:0] forComponent:0] forState:UIControlStateNormal];
+    }
 }
 
 - (IBAction)dismissNotesFieldKeyboard:(UITextField *)sender
 {
-    [notesField resignFirstResponder];
+    [self dismissKeyboardAndUpdateValues];
 }
 
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
@@ -171,7 +195,7 @@
     [notesField resignFirstResponder];
     
     // Update total to be added to tab field
-    float totalBillValue = [totalBillField.text floatValue];
+    float totalBillValue = [[totalBillField.text substringFromIndex:1] floatValue];
     float totalToBeAddedToTabValue = totalBillValue * splitBillSlider.value;
     NSInteger iPayYouPay = iPayYouPaySwitch.selectedSegmentIndex;
     if (iPayYouPay == 0) {
@@ -180,6 +204,9 @@
     else {
         totalToBeAddedToTabLabel.text = [NSString stringWithFormat:@"%.2f", (totalToBeAddedToTabValue * -1)];
     }
+    themSplitValueLabel.text = [NSString stringWithFormat:@"%@%.2f", @"$", totalToBeAddedToTabValue];
+    meSplitValueLabel.text = [NSString stringWithFormat:@"%@%.2f", @"$", totalBillValue - totalToBeAddedToTabValue];
+
 }
 
 #pragma mark - UIPickerViewDataSource and Delegate Methods
@@ -253,9 +280,21 @@
 {
     NSString *name = [filteredNames objectAtIndex:indexPath.row];
     personNameField.text = name;
-    indexOfExistingPerson = [personNames indexOfObject:name];
+    NSMutableArray *allPersonModelNames = [[NSMutableArray alloc] init];
+    for (int i = 0; i < [allPersonModels count]; i++) {
+        [allPersonModelNames addObject:[[allPersonModels objectAtIndex:i] personName]];
+    }
+    indexOfExistingPerson = [allPersonModelNames indexOfObject:name];
+    if (indexOfExistingPerson == NSNotFound) {
+        PersonModel *newPerson = [[PersonModel alloc] init];
+        newPerson.personName = name;
+        [allPersonModels addObject:newPerson];
+        personModel = newPerson;
+        indexOfExistingPerson = [allPersonModels count] - 1;
+    } else {
+       personModel = [allPersonModels objectAtIndex:indexOfExistingPerson]; 
+    }
     
-    personModel = [allPersonModels objectAtIndex:indexOfExistingPerson];
     [self searchDisplayControllerWillEndSearch:nil];
 }
 
@@ -302,6 +341,23 @@
     
     // Return YES to cause the search result table view to be reloaded.
     return YES;
+}
+
+#pragma mark - Address book
+
+- (void)addContactsFromAddressBook
+{
+    CFErrorRef error = NULL;
+    ABAddressBookRef addressBook = ABAddressBookCreateWithOptions(NULL, &error);
+    NSArray *allContacts = (__bridge_transfer NSArray *)ABAddressBookCopyArrayOfAllPeople(addressBook);
+    
+    for (int i = 0; i < [allContacts count]; i++) {
+        ABRecordRef contactPerson = (__bridge ABRecordRef)allContacts[i];
+        NSString *firstName = (__bridge_transfer NSString *)ABRecordCopyValue(contactPerson, kABPersonFirstNameProperty);
+        NSString *lastName =  (__bridge_transfer NSString *)ABRecordCopyValue(contactPerson, kABPersonLastNameProperty);
+        NSString *fullName = [NSString stringWithFormat:@"%@ %@", firstName, lastName];
+        [personNames addObject:fullName];
+    }
 }
 
 @end
