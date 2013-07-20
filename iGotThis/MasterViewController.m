@@ -61,7 +61,7 @@
 
 - (NSString *)saveFilename
 {
-    NSArray *path = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSArray *path = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
 	return [[path objectAtIndex:0] stringByAppendingPathComponent:@"savefile.plist"];
 }
 

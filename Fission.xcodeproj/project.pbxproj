@@ -21,6 +21,8 @@
 		E4075E001791F869009E4FD1 /* Water.png in Resources */ = {isa = PBXBuildFile; fileRef = E4075DF61791F869009E4FD1 /* Water.png */; };
 		E4075E0317933F32009E4FD1 /* AddressBook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E4075E0117933F32009E4FD1 /* AddressBook.framework */; };
 		E4075E0417933F32009E4FD1 /* AddressBookUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E4075E0217933F32009E4FD1 /* AddressBookUI.framework */; };
+		E4311BF4179AF8AF00C5F444 /* Icon@2x114x114.png in Resources */ = {isa = PBXBuildFile; fileRef = E4311BF3179AF8AF00C5F444 /* Icon@2x114x114.png */; };
+		E4311BF6179AF8B600C5F444 /* Icon57x57.png in Resources */ = {isa = PBXBuildFile; fileRef = E4311BF5179AF8B600C5F444 /* Icon57x57.png */; };
 		E467682B1716764E00B39690 /* PersonModel.m in Sources */ = {isa = PBXBuildFile; fileRef = E467682A1716764E00B39690 /* PersonModel.m */; };
 		E499DAC8170645600050FC5E /* AddNewEventViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E499DAC7170645600050FC5E /* AddNewEventViewController.m */; };
 		E49A922B1705350400E1409A /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E49A922A1705350400E1409A /* UIKit.framework */; };
@@ -41,8 +43,6 @@
 		E49A92571705350400E1409A /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E49A922C1705350400E1409A /* Foundation.framework */; };
 		E49A925F1705350400E1409A /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = E49A925D1705350400E1409A /* InfoPlist.strings */; };
 		E49A92621705350400E1409A /* iGotThisTests.m in Sources */ = {isa = PBXBuildFile; fileRef = E49A92611705350400E1409A /* iGotThisTests.m */; };
-		E49B07251720770900CABA73 /* iGotThisIcon_retina.png in Resources */ = {isa = PBXBuildFile; fileRef = E49B07241720770900CABA73 /* iGotThisIcon_retina.png */; };
-		E49B07271720771F00CABA73 /* iGotThisIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = E49B07261720771F00CABA73 /* iGotThisIcon.png */; };
 		E4CCD08F1746A4A5002C938C /* Add Transaction.png in Resources */ = {isa = PBXBuildFile; fileRef = E4CCD07E1746A4A5002C938C /* Add Transaction.png */; };
 		E4CCD0901746A4A5002C938C /* bkgd_btn.png in Resources */ = {isa = PBXBuildFile; fileRef = E4CCD07F1746A4A5002C938C /* bkgd_btn.png */; };
 		E4CCD0911746A4A5002C938C /* bkgd_btn@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E4CCD0801746A4A5002C938C /* bkgd_btn@2x.png */; };
@@ -87,18 +87,20 @@
 		E4075DF61791F869009E4FD1 /* Water.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Water.png; sourceTree = "<group>"; };
 		E4075E0117933F32009E4FD1 /* AddressBook.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBook.framework; path = System/Library/Frameworks/AddressBook.framework; sourceTree = SDKROOT; };
 		E4075E0217933F32009E4FD1 /* AddressBookUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBookUI.framework; path = System/Library/Frameworks/AddressBookUI.framework; sourceTree = SDKROOT; };
+		E4311BF3179AF8AF00C5F444 /* Icon@2x114x114.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Icon@2x114x114.png"; path = "../Icon@2x114x114.png"; sourceTree = "<group>"; };
+		E4311BF5179AF8B600C5F444 /* Icon57x57.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Icon57x57.png; path = ../Icon57x57.png; sourceTree = "<group>"; };
 		E46768291716764E00B39690 /* PersonModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PersonModel.h; sourceTree = "<group>"; };
 		E467682A1716764E00B39690 /* PersonModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PersonModel.m; sourceTree = "<group>"; };
 		E499DAC6170645600050FC5E /* AddNewEventViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddNewEventViewController.h; sourceTree = "<group>"; };
 		E499DAC7170645600050FC5E /* AddNewEventViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddNewEventViewController.m; sourceTree = "<group>"; };
-		E49A92271705350400E1409A /* iGotThis.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iGotThis.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		E49A92271705350400E1409A /* Fission.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Fission.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E49A922A1705350400E1409A /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		E49A922C1705350400E1409A /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		E49A922E1705350400E1409A /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
-		E49A92321705350400E1409A /* iGotThis-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "iGotThis-Info.plist"; sourceTree = "<group>"; };
+		E49A92321705350400E1409A /* Fission-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Fission-Info.plist"; sourceTree = "<group>"; };
 		E49A92341705350400E1409A /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		E49A92361705350400E1409A /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		E49A92381705350400E1409A /* iGotThis-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "iGotThis-Prefix.pch"; sourceTree = "<group>"; };
+		E49A92381705350400E1409A /* Fission-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Fission-Prefix.pch"; sourceTree = "<group>"; };
 		E49A92391705350400E1409A /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		E49A923A1705350400E1409A /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		E49A923C1705350400E1409A /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
@@ -110,14 +112,12 @@
 		E49A92491705350400E1409A /* MasterViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MasterViewController.m; sourceTree = "<group>"; };
 		E49A924B1705350400E1409A /* DetailViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DetailViewController.h; sourceTree = "<group>"; };
 		E49A924C1705350400E1409A /* DetailViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DetailViewController.m; sourceTree = "<group>"; };
-		E49A92531705350400E1409A /* iGotThisTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = iGotThisTests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
+		E49A92531705350400E1409A /* FissionTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FissionTests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
 		E49A92541705350400E1409A /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = Library/Frameworks/SenTestingKit.framework; sourceTree = DEVELOPER_DIR; };
-		E49A925C1705350400E1409A /* iGotThisTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "iGotThisTests-Info.plist"; sourceTree = "<group>"; };
+		E49A925C1705350400E1409A /* FissionTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "FissionTests-Info.plist"; sourceTree = "<group>"; };
 		E49A925E1705350400E1409A /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		E49A92601705350400E1409A /* iGotThisTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = iGotThisTests.h; sourceTree = "<group>"; };
 		E49A92611705350400E1409A /* iGotThisTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = iGotThisTests.m; sourceTree = "<group>"; };
-		E49B07241720770900CABA73 /* iGotThisIcon_retina.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = iGotThisIcon_retina.png; sourceTree = SOURCE_ROOT; };
-		E49B07261720771F00CABA73 /* iGotThisIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = iGotThisIcon.png; sourceTree = SOURCE_ROOT; };
 		E4CCD07E1746A4A5002C938C /* Add Transaction.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Add Transaction.png"; sourceTree = "<group>"; };
 		E4CCD07F1746A4A5002C938C /* bkgd_btn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bkgd_btn.png; sourceTree = "<group>"; };
 		E4CCD0801746A4A5002C938C /* bkgd_btn@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bkgd_btn@2x.png"; sourceTree = "<group>"; };
@@ -193,8 +193,8 @@
 		E49A92281705350400E1409A /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				E49A92271705350400E1409A /* iGotThis.app */,
-				E49A92531705350400E1409A /* iGotThisTests.octest */,
+				E49A92271705350400E1409A /* Fission.app */,
+				E49A92531705350400E1409A /* FissionTests.octest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -234,17 +234,17 @@
 			children = (
 				E4CCD07D1746A4A5002C938C /* iGotThis_Assets_051613 */,
 				E4075DEC1791F869009E4FD1 /* CategoryIcons 144px */,
-				E49B07261720771F00CABA73 /* iGotThisIcon.png */,
-				E49B07241720770900CABA73 /* iGotThisIcon_retina.png */,
+				E4311BF5179AF8B600C5F444 /* Icon57x57.png */,
+				E4311BF3179AF8AF00C5F444 /* Icon@2x114x114.png */,
 				E4075DD1178A342F009E4FD1 /* bkgd_whitebox_113h.png */,
 				E4075DD51791E244009E4FD1 /* UISlider_triangle.png */,
 				E49A92451705350400E1409A /* MainStoryboard_iPad.storyboard */,
 				E49A92391705350400E1409A /* AppDelegate.h */,
 				E49A923A1705350400E1409A /* AppDelegate.m */,
-				E49A92321705350400E1409A /* iGotThis-Info.plist */,
+				E49A92321705350400E1409A /* Fission-Info.plist */,
 				E49A92331705350400E1409A /* InfoPlist.strings */,
 				E49A92361705350400E1409A /* main.m */,
-				E49A92381705350400E1409A /* iGotThis-Prefix.pch */,
+				E49A92381705350400E1409A /* Fission-Prefix.pch */,
 				E49A923C1705350400E1409A /* Default.png */,
 				E49A923E1705350400E1409A /* Default@2x.png */,
 				E49A92401705350400E1409A /* Default-568h@2x.png */,
@@ -265,7 +265,7 @@
 		E49A925B1705350400E1409A /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				E49A925C1705350400E1409A /* iGotThisTests-Info.plist */,
+				E49A925C1705350400E1409A /* FissionTests-Info.plist */,
 				E49A925D1705350400E1409A /* InfoPlist.strings */,
 			);
 			name = "Supporting Files";
@@ -298,9 +298,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		E49A92261705350400E1409A /* iGotThis */ = {
+		E49A92261705350400E1409A /* Fission */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = E49A92651705350400E1409A /* Build configuration list for PBXNativeTarget "iGotThis" */;
+			buildConfigurationList = E49A92651705350400E1409A /* Build configuration list for PBXNativeTarget "Fission" */;
 			buildPhases = (
 				E49A92231705350400E1409A /* Sources */,
 				E49A92241705350400E1409A /* Frameworks */,
@@ -310,14 +310,14 @@
 			);
 			dependencies = (
 			);
-			name = iGotThis;
+			name = Fission;
 			productName = iGotThis;
-			productReference = E49A92271705350400E1409A /* iGotThis.app */;
+			productReference = E49A92271705350400E1409A /* Fission.app */;
 			productType = "com.apple.product-type.application";
 		};
-		E49A92521705350400E1409A /* iGotThisTests */ = {
+		E49A92521705350400E1409A /* FissionTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = E49A92681705350400E1409A /* Build configuration list for PBXNativeTarget "iGotThisTests" */;
+			buildConfigurationList = E49A92681705350400E1409A /* Build configuration list for PBXNativeTarget "FissionTests" */;
 			buildPhases = (
 				E49A924E1705350400E1409A /* Sources */,
 				E49A924F1705350400E1409A /* Frameworks */,
@@ -329,9 +329,9 @@
 			dependencies = (
 				E49A92591705350400E1409A /* PBXTargetDependency */,
 			);
-			name = iGotThisTests;
+			name = FissionTests;
 			productName = iGotThisTests;
-			productReference = E49A92531705350400E1409A /* iGotThisTests.octest */;
+			productReference = E49A92531705350400E1409A /* FissionTests.octest */;
 			productType = "com.apple.product-type.bundle";
 		};
 /* End PBXNativeTarget section */
@@ -343,7 +343,7 @@
 				LastUpgradeCheck = 0460;
 				ORGANIZATIONNAME = Trinary;
 			};
-			buildConfigurationList = E49A92221705350400E1409A /* Build configuration list for PBXProject "iGotThis" */;
+			buildConfigurationList = E49A92221705350400E1409A /* Build configuration list for PBXProject "Fission" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -355,8 +355,8 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				E49A92261705350400E1409A /* iGotThis */,
-				E49A92521705350400E1409A /* iGotThisTests */,
+				E49A92261705350400E1409A /* Fission */,
+				E49A92521705350400E1409A /* FissionTests */,
 			);
 		};
 /* End PBXProject section */
@@ -372,8 +372,6 @@
 				E49A92411705350400E1409A /* Default-568h@2x.png in Resources */,
 				E49A92441705350400E1409A /* MainStoryboard_iPhone.storyboard in Resources */,
 				E49A92471705350400E1409A /* MainStoryboard_iPad.storyboard in Resources */,
-				E49B07251720770900CABA73 /* iGotThisIcon_retina.png in Resources */,
-				E49B07271720771F00CABA73 /* iGotThisIcon.png in Resources */,
 				E4CCD08F1746A4A5002C938C /* Add Transaction.png in Resources */,
 				E4CCD0901746A4A5002C938C /* bkgd_btn.png in Resources */,
 				E4CCD0911746A4A5002C938C /* bkgd_btn@2x.png in Resources */,
@@ -403,6 +401,8 @@
 				E4075DFE1791F869009E4FD1 /* Restaurant.png in Resources */,
 				E4075DFF1791F869009E4FD1 /* TV.png in Resources */,
 				E4075E001791F869009E4FD1 /* Water.png in Resources */,
+				E4311BF4179AF8AF00C5F444 /* Icon@2x114x114.png in Resources */,
+				E4311BF6179AF8B600C5F444 /* Icon57x57.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -459,7 +459,7 @@
 /* Begin PBXTargetDependency section */
 		E49A92591705350400E1409A /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = E49A92261705350400E1409A /* iGotThis */;
+			target = E49A92261705350400E1409A /* Fission */;
 			targetProxy = E49A92581705350400E1409A /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -563,9 +563,9 @@
 			buildSettings = {
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: James Mason (6A6Q73U8L6)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "iGotThis/iGotThis-Prefix.pch";
-				INFOPLIST_FILE = "iGotThis/iGotThis-Info.plist";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				GCC_PREFIX_HEADER = "iGotThis/Fission-Prefix.pch";
+				INFOPLIST_FILE = "iGotThis/Fission-Info.plist";
+				PRODUCT_NAME = Fission;
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "844678E7-B7E0-4D7A-A196-680CD5DCB0E9";
 				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
@@ -577,9 +577,9 @@
 			buildSettings = {
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: James Mason (Y3EC579VUK)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "iGotThis/iGotThis-Prefix.pch";
-				INFOPLIST_FILE = "iGotThis/iGotThis-Info.plist";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				GCC_PREFIX_HEADER = "iGotThis/Fission-Prefix.pch";
+				INFOPLIST_FILE = "iGotThis/Fission-Info.plist";
+				PRODUCT_NAME = Fission;
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "E9B3C76F-966A-4305-BE83-0C689DB2C358";
 				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
@@ -596,8 +596,8 @@
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "iGotThis/iGotThis-Prefix.pch";
-				INFOPLIST_FILE = "iGotThisTests/iGotThisTests-Info.plist";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				INFOPLIST_FILE = "iGotThisTests/FissionTests-Info.plist";
+				PRODUCT_NAME = FissionTests;
 				TEST_HOST = "$(BUNDLE_LOADER)";
 				WRAPPER_EXTENSION = octest;
 			};
@@ -613,8 +613,8 @@
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "iGotThis/iGotThis-Prefix.pch";
-				INFOPLIST_FILE = "iGotThisTests/iGotThisTests-Info.plist";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				INFOPLIST_FILE = "iGotThisTests/FissionTests-Info.plist";
+				PRODUCT_NAME = FissionTests;
 				TEST_HOST = "$(BUNDLE_LOADER)";
 				WRAPPER_EXTENSION = octest;
 			};
@@ -623,7 +623,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		E49A92221705350400E1409A /* Build configuration list for PBXProject "iGotThis" */ = {
+		E49A92221705350400E1409A /* Build configuration list for PBXProject "Fission" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				E49A92631705350400E1409A /* Debug */,
@@ -632,7 +632,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		E49A92651705350400E1409A /* Build configuration list for PBXNativeTarget "iGotThis" */ = {
+		E49A92651705350400E1409A /* Build configuration list for PBXNativeTarget "Fission" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				E49A92661705350400E1409A /* Debug */,
@@ -641,7 +641,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		E49A92681705350400E1409A /* Build configuration list for PBXNativeTarget "iGotThisTests" */ = {
+		E49A92681705350400E1409A /* Build configuration list for PBXNativeTarget "FissionTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				E49A92691705350400E1409A /* Debug */,

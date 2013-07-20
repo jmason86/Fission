@@ -16,8 +16,8 @@
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "E49A92261705350400E1409A"
                BuildableName = "iGotThis.app"
-               BlueprintName = "iGotThis"
-               ReferencedContainer = "container:iGotThis.xcodeproj">
+               BlueprintName = "Fission"
+               ReferencedContainer = "container:Fission.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -34,8 +34,8 @@
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "E49A92521705350400E1409A"
                BuildableName = "iGotThisTests.octest"
-               BlueprintName = "iGotThisTests"
-               ReferencedContainer = "container:iGotThis.xcodeproj">
+               BlueprintName = "FissionTests"
+               ReferencedContainer = "container:Fission.xcodeproj">
             </BuildableReference>
          </TestableReference>
       </Testables>
@@ -44,8 +44,8 @@
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "E49A92261705350400E1409A"
             BuildableName = "iGotThis.app"
-            BlueprintName = "iGotThis"
-            ReferencedContainer = "container:iGotThis.xcodeproj">
+            BlueprintName = "Fission"
+            ReferencedContainer = "container:Fission.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
    </TestAction>
@@ -63,8 +63,8 @@
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "E49A92261705350400E1409A"
             BuildableName = "iGotThis.app"
-            BlueprintName = "iGotThis"
-            ReferencedContainer = "container:iGotThis.xcodeproj">
+            BlueprintName = "Fission"
+            ReferencedContainer = "container:Fission.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
       <AdditionalOptions>
@@ -81,8 +81,8 @@
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "E49A92261705350400E1409A"
             BuildableName = "iGotThis.app"
-            BlueprintName = "iGotThis"
-            ReferencedContainer = "container:iGotThis.xcodeproj">
+            BlueprintName = "Fission"
+            ReferencedContainer = "container:Fission.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>
