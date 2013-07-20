@@ -13,7 +13,7 @@
 
 @implementation DetailViewController
 
-@synthesize personModel, transactionsTableView, themTotalLabel, youTotalLabel, totalLabel;
+@synthesize personModel, transactionsTableView, themTotalLabel, youTotalLabel, totalLabel, whoOwesWhoLabel;
 
 #pragma mark - Managing the detail item
 
@@ -44,14 +44,11 @@
     themTotalLabel.text = [NSString stringWithFormat:@"%@%i", @"$", themTotal];
     youTotalLabel.text = [NSString stringWithFormat:@"%@%i", @"$", youTotal];
     totalLabel.text = [NSString stringWithFormat:@"%@%@", @"$", [NSNumber numberWithInteger:round([personModel.personBalance floatValue])]];
-    
-    // Color the total label (difference) accordingly
     if ([personModel.personBalance floatValue] > 0) {
-        totalLabel.textColor = [UIColor colorWithRed:0.87 green:0.24 blue:0.22 alpha:1.0];
+        whoOwesWhoLabel.text = @"They owe me";
     } else {
-        totalLabel.textColor = [UIColor colorWithRed:0.29 green:0.68 blue:0.24 alpha:1.0];
+        whoOwesWhoLabel.text = @"I owe them";
     }
-
     
     // Setup tableview delegage/datasource and reload table
     transactionsTableView.delegate = self;

@@ -295,6 +295,7 @@
        personModel = [allPersonModels objectAtIndex:indexOfExistingPerson]; 
     }
     
+    [filteredNames removeAllObjects];
     [self searchDisplayControllerWillEndSearch:nil];
 }
 
@@ -316,11 +317,16 @@
 
 //When the user taps the search bar, this means that the controller will begin searching.
 - (void)searchDisplayControllerWillBeginSearch:(UISearchDisplayController *)controller {
+    [personNameField setShowsCancelButton:YES animated:NO];
+    for (UIView *subView in personNameField.subviews){
+        if([subView isKindOfClass:[UIButton class]]){
+            [(UIButton*)subView setTitle:@"Done" forState:UIControlStateNormal];
+        }
+    }
     isSearching = YES;
 }
 
-// When the user taps the Cancel Button, or anywhere aside from the view.
-// TODO: Customize  the cancel button to instead say "Add", or ideally the Search button to "Add"
+// When the user taps the Done button, or anywhere aside from the view.
 - (void)searchDisplayControllerWillEndSearch:(UISearchDisplayController *)controller {
     personNameField.placeholder = personNameField.text;
     
@@ -349,15 +355,41 @@
 {
     CFErrorRef error = NULL;
     ABAddressBookRef addressBook = ABAddressBookCreateWithOptions(NULL, &error);
-    NSArray *allContacts = (__bridge_transfer NSArray *)ABAddressBookCopyArrayOfAllPeople(addressBook);
-    
-    for (int i = 0; i < [allContacts count]; i++) {
-        ABRecordRef contactPerson = (__bridge ABRecordRef)allContacts[i];
-        NSString *firstName = (__bridge_transfer NSString *)ABRecordCopyValue(contactPerson, kABPersonFirstNameProperty);
-        NSString *lastName =  (__bridge_transfer NSString *)ABRecordCopyValue(contactPerson, kABPersonLastNameProperty);
-        NSString *fullName = [NSString stringWithFormat:@"%@ %@", firstName, lastName];
-        [personNames addObject:fullName];
+    if (ABAddressBookGetAuthorizationStatus() == kABAuthorizationStatusNotDetermined) {
+        ABAddressBookRequestAccessWithCompletion(addressBook, ^(bool granted, CFErrorRef error) {
+            // First time access has been granted, add the contact
+            NSArray *allContacts = (__bridge_transfer NSArray *)ABAddressBookCopyArrayOfAllPeople(addressBook);
+            
+            for (int i = 0; i < [allContacts count]; i++) {
+                ABRecordRef contactPerson = (__bridge ABRecordRef)allContacts[i];
+                NSString *firstName = (__bridge_transfer NSString *)ABRecordCopyValue(contactPerson, kABPersonFirstNameProperty);
+                NSString *lastName =  (__bridge_transfer NSString *)ABRecordCopyValue(contactPerson, kABPersonLastNameProperty);
+                NSString *fullName = [NSString stringWithFormat:@"%@ %@", firstName, lastName];
+                [personNames addObject:fullName];
+            }
+        });
     }
+    else if (ABAddressBookGetAuthorizationStatus() == kABAuthorizationStatusAuthorized) {
+        // The user has previously given access, add the contact
+        NSArray *allContacts = (__bridge_transfer NSArray *)ABAddressBookCopyArrayOfAllPeople(addressBook);
+        
+        for (int i = 0; i < [allContacts count]; i++) {
+            ABRecordRef contactPerson = (__bridge ABRecordRef)allContacts[i];
+            NSString *firstName = (__bridge_transfer NSString *)ABRecordCopyValue(contactPerson, kABPersonFirstNameProperty);
+            NSString *lastName =  (__bridge_transfer NSString *)ABRecordCopyValue(contactPerson, kABPersonLastNameProperty);
+            NSString *fullName = [NSString stringWithFormat:@"%@ %@", firstName, lastName];
+            [personNames addObject:fullName];
+        }
+
+    }
+    else {
+        // The user has previously denied access
+        NSLog(@"User has denied access to contacts so can't include in the search");
+    }
+    
+    // Remove duplicates
+    NSSet *uniqueSet = [[NSSet setWithArray:personNames] allObjects];
+    personNames = [[uniqueSet allObjects] mutableCopy];
 }
 
 @end

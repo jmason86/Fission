@@ -41,7 +41,6 @@
     }
     
     // On app terminate or resign active, save data to disk
-    //[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(saveData) name:UIApplicationWillResignActiveNotification object:nil];
     UIApplication *myApp = [UIApplication sharedApplication];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(applicationDidEnterBackground:) name:UIApplicationDidEnterBackgroundNotification object:myApp];
 }
@@ -156,20 +155,28 @@
     UILabel *nameLabel = (UILabel *)[cell viewWithTag:1];
     UILabel *latestTransactionLabel = (UILabel *)[cell viewWithTag:2];
     UILabel *balanceLabel = (UILabel *)[cell viewWithTag:3];
+    UILabel *whoOwesWhoLabel = (UILabel *)[cell viewWithTag:4];
+    UIImageView *upOrDownArrowImage = (UIImageView *)[cell viewWithTag:5];
     nameLabel.text = personName;
     latestTransactionLabel.text = personLatestTransaction;
     balanceLabel.text = personBalance;
     
-    // Determine coloring of text
+    // Determine coloring of text for latest transaction
     if ([personLatestTransaction floatValue] < 0) {
-        balanceLabel.textColor = [UIColor colorWithRed:0.87 green:0.24 blue:0.22 alpha:1.0];
+        latestTransactionLabel.textColor = [UIColor colorWithRed:0.87 green:0.24 blue:0.22 alpha:1.0];
+        UIImage *arrowImage = [UIImage imageNamed:@"down.png"];
+        upOrDownArrowImage.image = arrowImage;
     } else {
-        balanceLabel.textColor = [UIColor colorWithRed:0.29 green:0.68 blue:0.24 alpha:1.0];
+        latestTransactionLabel.textColor = [UIColor colorWithRed:0.29 green:0.68 blue:0.24 alpha:1.0];
+        UIImage *arrowImage = [UIImage imageNamed:@"up.png"];
+        upOrDownArrowImage.image = arrowImage;
     }
-    if ([personBalance floatValue] < 0) {
-        balanceLabel.textColor = [UIColor colorWithRed:0.87 green:0.24 blue:0.22 alpha:1.0];
+    
+    // Determine whether you owe or they owe
+    if ([personBalance floatValue] > 0) {
+        whoOwesWhoLabel.text = @"They owe me";
     } else {
-        balanceLabel.textColor = [UIColor colorWithRed:0.29 green:0.68 blue:0.24 alpha:1.0];
+        whoOwesWhoLabel.text = @"I owe them";
     }
     
     return cell;

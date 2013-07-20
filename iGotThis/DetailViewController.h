@@ -19,6 +19,7 @@
 @property (strong, nonatomic) IBOutlet UILabel *themTotalLabel;
 @property (strong, nonatomic) IBOutlet UILabel *youTotalLabel;
 @property (strong, nonatomic) IBOutlet UILabel *totalLabel;
+@property (strong, nonatomic) IBOutlet UILabel *whoOwesWhoLabel;
 
 
 @end
