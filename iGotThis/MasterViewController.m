@@ -59,23 +59,10 @@
     }
 }
 
-- (void)saveData
-{
-    NSString *saveFilename = [self saveFilename];
-    NSMutableData *data = [[NSMutableData alloc] init];
-    NSKeyedArchiver *archiver = [[NSKeyedArchiver alloc] initForWritingWithMutableData:data];
-    [archiver encodeObject:allPersonModels forKey:@"allPersonModels"];
-    [archiver finishEncoding];
-    BOOL success = [data writeToFile:saveFilename atomically:YES];
-    if (!success) {
-        NSLog(@"Failed to write allPersonModels to disk");
-    }
-}
-
 - (NSString *)saveFilename
 {
-    NSString *filename = [NSString stringWithFormat:@"%@%@", [[NSBundle mainBundle] resourcePath], @"/allPersonModels.archive"];
-    return filename; 
+    NSArray *path = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+	return [[path objectAtIndex:0] stringByAppendingPathComponent:@"savefile.plist"];
 }
 
 - (void)viewWillAppear:(BOOL)animated

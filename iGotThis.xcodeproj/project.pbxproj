@@ -561,12 +561,12 @@
 		E49A92661705350400E1409A /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: James Mason (Y3EC579VUK)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: James Mason (6A6Q73U8L6)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "iGotThis/iGotThis-Prefix.pch";
 				INFOPLIST_FILE = "iGotThis/iGotThis-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "E9B3C76F-966A-4305-BE83-0C689DB2C358";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "844678E7-B7E0-4D7A-A196-680CD5DCB0E9";
 				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
 			};
