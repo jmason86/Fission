@@ -41,8 +41,22 @@
     }
     
     // On app terminate or resign active, save data to disk
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(saveData) name:UIApplicationWillResignActiveNotification object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(saveData) name:UIApplicationWillTerminateNotification object:nil];
+    //[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(saveData) name:UIApplicationWillResignActiveNotification object:nil];
+    UIApplication *myApp = [UIApplication sharedApplication];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(applicationDidEnterBackground:) name:UIApplicationDidEnterBackgroundNotification object:myApp];
+}
+
+- (void)applicationDidEnterBackground:(UIApplication *)application
+{
+    NSString *saveFilename = [self saveFilename];
+    NSMutableData *data = [[NSMutableData alloc] init];
+    NSKeyedArchiver *archiver = [[NSKeyedArchiver alloc] initForWritingWithMutableData:data];
+    [archiver encodeObject:allPersonModels forKey:@"allPersonModels"];
+    [archiver finishEncoding];
+    BOOL success = [data writeToFile:saveFilename atomically:YES];
+    if (!success) {
+        NSLog(@"Failed to write allPersonModels to disk");
+    }
 }
 
 - (void)saveData
