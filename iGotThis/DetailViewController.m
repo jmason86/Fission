@@ -12,6 +12,11 @@
 @end
 
 @implementation DetailViewController
+{
+    UIColor *green;
+    UIColor *red;
+    UIColor *gray;
+}
 
 @synthesize personModel, transactionsTableView, themTotalLabel, youTotalLabel, totalLabel, whoOwesWhoLabel;
 
@@ -20,6 +25,9 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    green = [UIColor colorWithRed:0.29 green:0.68 blue:0.24 alpha:1.0];
+    red = [UIColor colorWithRed:0.87 green:0.24 blue:0.22 alpha:1.0];
+    gray = [UIColor grayColor];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -29,21 +37,21 @@
     
     // Total up all them balances and all you balances
     float themSum = 0.0;
-    float youSum = 0.0;
+    float meSum = 0.0;
     for (int i = 0; i < [personModel.allIOUs count]; i++) {
         if ([[personModel.allIOUs objectAtIndex:i] floatValue] < 0.0) {
             themSum += [[personModel.allIOUs objectAtIndex:i] floatValue];
         } else {
-            youSum += [[personModel.allIOUs objectAtIndex:i] floatValue];
+            meSum += [[personModel.allIOUs objectAtIndex:i] floatValue];
         }
     }
     int themTotal = round(abs(themSum));
-    int youTotal = round(youSum);
+    int meTotal = round(meSum);
     
     // Fill in totals on screen
     themTotalLabel.text = [NSString stringWithFormat:@"%@%i", @"$", themTotal];
-    youTotalLabel.text = [NSString stringWithFormat:@"%@%i", @"$", youTotal];
-    totalLabel.text = [NSString stringWithFormat:@"%@%@", @"$", [NSNumber numberWithInteger:round([personModel.personBalance floatValue])]];
+    youTotalLabel.text = [NSString stringWithFormat:@"%@%i", @"$", meTotal];
+    totalLabel.text = [NSString stringWithFormat:@"%@%@", @"$", [NSNumber numberWithInteger:abs(round([personModel.personBalance floatValue]))]];
     if ([personModel.personBalance floatValue] > 0) {
         whoOwesWhoLabel.text = @"They owe me";
     } else {
@@ -70,21 +78,29 @@
         NSInteger row = [[self.transactionsTableView indexPathForSelectedRow] row];
         addNewEventViewController.transactionIndex = row;
     }
+    
+    if ([[segue identifier] isEqualToString:@"addNewEventToUserSegue"]) {
+        // Pass the addNewEventViewController the full personModel
+        AddNewEventViewController *addNewEventViewController = segue.destinationViewController;
+        addNewEventViewController.personModel = personModel;
+        addNewEventViewController.transactionIndex = -1;
+    }
 }
 
-// Returning (unwinding) from Subviews to MasterViewController
+// Returning (unwinding) from AddNewEventViewController to DetailViewController
 - (IBAction)addNewEventDone:(UIStoryboardSegue *)segue
 {
     AddNewEventViewController *addNewEventViewController = [segue sourceViewController];
-    
-    // Tell addNewViewController to update the personModel
+
+    // Tell addNewViewController to update it's personModel
     [addNewEventViewController updatePersonModel];
+    
+    // Replace whole person model with updated version
+    personModel = nil;
+    PersonModel *updatedPersonModel = [addNewEventViewController personModel];
+    personModel = updatedPersonModel;
 }
 
-- (IBAction)addNewEventCancel:(UIStoryboardSegue *)segue
-{
-    
-}
 
 #pragma mark - Table View Data Source
 
@@ -141,9 +157,9 @@
     
     // Determine coloring of text
     if ([iouNumber floatValue] < 0) {
-        iouLabel.textColor = [UIColor colorWithRed:0.87 green:0.24 blue:0.22 alpha:1.0];
+        iouLabel.textColor = green;
     } else {
-        iouLabel.textColor = [UIColor colorWithRed:0.29 green:0.68 blue:0.24 alpha:1.0];
+        iouLabel.textColor = red;
     }
     
     return cell;

@@ -81,7 +81,7 @@
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
     
-    if ([[segue identifier] isEqualToString:@"showDetail"]) {
+    if ([[segue identifier] isEqualToString:@"showDetailSegue"]) {
         NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
         DetailViewController *detailViewController = segue.destinationViewController;
         detailViewController.personModel = [allPersonModels objectAtIndex:indexPath.row];
@@ -94,7 +94,7 @@
     }
 }
 
-// Reutrning (unwinding) from DetailViewController to MasterViewController
+// Returning (unwinding) from DetailViewController to MasterViewController
 - (IBAction)editOldEventDone:(UIStoryboardSegue *)segue
 {
     DetailViewController *detailViewController = [segue sourceViewController];
@@ -104,7 +104,7 @@
     [allPersonModels replaceObjectAtIndex:indexPath.row withObject:detailViewController.personModel];
 }
 
-// Reutrning (unwinding) from DetailViewController to MasterViewController
+// Returning (unwinding) from DetailViewController to MasterViewController
 - (IBAction)editOldEventCancel:(UIStoryboardSegue *)segue
 {
     
@@ -119,10 +119,11 @@
     [addNewEventViewController updateAllPersonModels];
     
     // Update allPersonModel
-    [allPersonModels removeAllObjects];
+    [allPersonModels removeAllObjects]; // TODO: This may be a bug in the case of editing an existing transaction from DetailViewController
     NSMutableArray *updatedAllPersonModels = [addNewEventViewController allPersonModels];
     allPersonModels = updatedAllPersonModels;
 }
+ 
 
 // Returning (unwinding) from AddNewEventViewController
 - (IBAction)addNewEventCancel:(UIStoryboardSegue *)segue
@@ -148,8 +149,12 @@
     
     // Obtain values from allPersonModels
     NSString *personName = [[allPersonModels objectAtIndex:indexPath.row] personName];
-    NSString *personBalance = [[[allPersonModels objectAtIndex:indexPath.row] personBalance] stringValue];
-    NSString *personLatestTransaction = [[[[allPersonModels objectAtIndex:indexPath.row] allIOUs] lastObject] stringValue];
+    NSNumber *personBalance = [[allPersonModels objectAtIndex:indexPath.row] personBalance];
+    NSString *personBalanceAbsolute = [NSString stringWithFormat:@"%@%@", @"$", [NSNumber numberWithInteger:abs(round([personBalance floatValue]))]];
+    NSNumber *personLatestTransaction = [[[allPersonModels objectAtIndex:indexPath.row] allIOUs] lastObject];
+    NSNumber *personLatestTransactionAbsolute = [NSNumber numberWithInteger:abs([personLatestTransaction integerValue])];
+    NSString *personLatestTransactionString = [NSString stringWithFormat:@"%@%@", @"$" , personLatestTransactionAbsolute];
+    NSString *personLatestCategory = [[[allPersonModels objectAtIndex:indexPath.row] allCategories] lastObject];
     
     // Put values into the UILabels
     UILabel *nameLabel = (UILabel *)[cell viewWithTag:1];
@@ -157,18 +162,20 @@
     UILabel *balanceLabel = (UILabel *)[cell viewWithTag:3];
     UILabel *whoOwesWhoLabel = (UILabel *)[cell viewWithTag:4];
     UIImageView *upOrDownArrowImage = (UIImageView *)[cell viewWithTag:5];
+    UILabel *latestCategoryLabel = (UILabel *)[cell viewWithTag:6];
     nameLabel.text = personName;
-    latestTransactionLabel.text = personLatestTransaction;
-    balanceLabel.text = personBalance;
+    latestTransactionLabel.text = personLatestTransactionString;
+    balanceLabel.text = personBalanceAbsolute;
+    latestCategoryLabel.text = personLatestCategory;
     
     // Determine coloring of text for latest transaction
     if ([personLatestTransaction floatValue] < 0) {
-        latestTransactionLabel.textColor = [UIColor colorWithRed:0.87 green:0.24 blue:0.22 alpha:1.0];
-        UIImage *arrowImage = [UIImage imageNamed:@"down.png"];
+        latestTransactionLabel.textColor = [UIColor colorWithRed:0.29 green:0.68 blue:0.24 alpha:1.0]; // green
+        UIImage *arrowImage = [UIImage imageNamed:@"icon_arrowdown.png"];
         upOrDownArrowImage.image = arrowImage;
     } else {
-        latestTransactionLabel.textColor = [UIColor colorWithRed:0.29 green:0.68 blue:0.24 alpha:1.0];
-        UIImage *arrowImage = [UIImage imageNamed:@"up.png"];
+        latestTransactionLabel.textColor = [UIColor colorWithRed:0.87 green:0.24 blue:0.22 alpha:1.0]; // red
+        UIImage *arrowImage = [UIImage imageNamed:@"icon_arrowup.png"];
         upOrDownArrowImage.image = arrowImage;
     }
     

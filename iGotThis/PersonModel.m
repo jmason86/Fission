@@ -74,10 +74,21 @@
 
 - (void)totalUpIOUsForBalance
 {
-    float sum = 0.0;
+    // Total up all them balances and all you balances
+    float themSum = 0.0;
+    float meSum = 0.0;
     for (int i = 0; i < [allIOUs count]; i++) {
-        sum += [[allIOUs objectAtIndex:i] floatValue];
+        if ([[allIOUs objectAtIndex:i] floatValue] < 0.0) {
+            themSum += [[allIOUs objectAtIndex:i] floatValue];
+        } else {
+            meSum += [[allIOUs objectAtIndex:i] floatValue];
+        }
     }
+    int themTotal = round(themSum);
+    int meTotal = round(meSum);
+    
+    int sum = meTotal + themTotal;
+    
     personBalance = [NSNumber numberWithFloat:sum];
 }
 

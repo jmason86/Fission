@@ -21,6 +21,9 @@
     NSMutableArray *filteredNames;
     UISearchDisplayController *searchController;
     BOOL isSearching;
+    UIColor *green;
+    UIColor *red;
+    UIColor *gray;
 }
 
 @synthesize allPersonModels, personModel, transactionIndex, personNameField, totalBillField, iPayYouPaySwitch, splitBillSlider, totalToBeAddedToTabLabel, categoryPicker, notesField, filteredNameListTable, categoryView, categoryButton, percentSplitLabel, meSplitValueLabel, themSplitValueLabel;
@@ -34,9 +37,14 @@
     return self;
 }
 
-- (void)viewDidLoad
+- (void)viewWillAppear:(BOOL)animated
 {
     [super viewDidLoad];
+    
+    // Define standard colors
+    green = [UIColor colorWithRed:0.29 green:0.68 blue:0.24 alpha:1.0]; // green
+    red = [UIColor colorWithRed:0.87 green:0.24 blue:0.22 alpha:1.0]; // red
+    gray = [UIColor grayColor];
     
     // Prepare pre-defined category choices
     categoryChoices = [[NSArray alloc] initWithObjects:@"Restaurant", @"Bill", @"Electric", @"Event", @"Grocery", @"Misc", @"Movie", @"Rent", @"TV", @"Water", nil];
@@ -64,21 +72,26 @@
         self.navigationItem.title = @"New Event";
     } else {
         personNameField.placeholder = personModel.personName;
-        totalBillField.text = [[personModel.allTotalBills objectAtIndex:transactionIndex] stringValue];
-        iPayYouPaySwitch.selectedSegmentIndex = [[personModel.allWhoPaidIndices objectAtIndex:transactionIndex] intValue];
-        splitBillSlider.value = [[personModel.allSplitFractions objectAtIndex:transactionIndex] floatValue];
-        totalToBeAddedToTabLabel.text = [[personModel.allIOUs objectAtIndex:transactionIndex] stringValue];
-        NSInteger selectedRow = [categoryChoices indexOfObject:[personModel.allCategories objectAtIndex:transactionIndex]];
-        [categoryPicker selectRow:selectedRow inComponent:0 animated:YES];
-        notesField.text = [personModel.allNotes objectAtIndex:transactionIndex];
+        if (transactionIndex != -1) {
+            totalBillField.text = [[personModel.allTotalBills objectAtIndex:transactionIndex] stringValue];
+            iPayYouPaySwitch.selectedSegmentIndex = [[personModel.allWhoPaidIndices objectAtIndex:transactionIndex] intValue];
+            splitBillSlider.value = [[personModel.allSplitFractions objectAtIndex:transactionIndex] floatValue];
+            totalToBeAddedToTabLabel.text = [[personModel.allIOUs objectAtIndex:transactionIndex] stringValue];
+            NSInteger selectedRow = [categoryChoices indexOfObject:[personModel.allCategories objectAtIndex:transactionIndex]];
+            [categoryPicker selectRow:selectedRow inComponent:0 animated:YES];
+            [categoryButton setTitle:[self pickerView:categoryPicker titleForRow:[categoryPicker selectedRowInComponent:0] forComponent:0] forState:UIControlStateNormal];
+            notesField.text = [personModel.allNotes objectAtIndex:transactionIndex];
+        }
         filteredNameListTable.userInteractionEnabled = NO;
         self.navigationItem.title = @"Edit Event";
+        [self dismissKeyboardAndUpdateValues];
     }
     
     // Customize the look of the slider
-    UIImage *sliderThumb = [UIImage imageNamed:@"UISlider_triangle.png"];
+    /*UIImage *sliderThumb = [UIImage imageNamed:@"UISlider_triangle.png"];
     [splitBillSlider setThumbImage:sliderThumb forState:UIControlStateNormal];
     [splitBillSlider setThumbImage:sliderThumb forState:UIControlStateHighlighted];
+    */
 }
 
 // If coming from MasterViewController then add new objects
@@ -87,7 +100,7 @@
     [self dismissKeyboardAndUpdateValues];
     
     personModel.personName = personNameField.placeholder;
-    [personModel.allTotalBills addObject:[NSNumber numberWithFloat:[[totalBillField.text substringFromIndex:1] floatValue]]];
+    [personModel.allTotalBills addObject:[NSNumber numberWithFloat:[totalBillField.text floatValue]]];
     [personModel.allIOUs addObject:[NSNumber numberWithFloat:[totalToBeAddedToTabLabel.text floatValue]]];
     [personModel.allSplitFractions addObject:[NSNumber numberWithFloat:splitBillSlider.value]];
     [personModel.allWhoPaidIndices addObject:[NSNumber numberWithInteger:iPayYouPaySwitch.selectedSegmentIndex]];
@@ -113,14 +126,24 @@
     [self dismissKeyboardAndUpdateValues];
     personModel.personName = personNameField.placeholder;
     [personModel totalUpIOUsForBalance];
-    //personModel.personBalance = [NSNumber numberWithFloat:[totalToBeAddedToTabLabel.text floatValue]]; // FIXIT: This should be the sum of allIOUs, not the single value in totalToBeAddedToTabLabel
-    [personModel.allTotalBills replaceObjectAtIndex:transactionIndex withObject:[NSNumber numberWithFloat:[[totalBillField.text substringFromIndex:1] floatValue]]];
-    [personModel.allIOUs replaceObjectAtIndex:transactionIndex withObject:[NSNumber numberWithFloat:[totalToBeAddedToTabLabel.text floatValue]]];
-    [personModel.allSplitFractions replaceObjectAtIndex:transactionIndex withObject:[NSNumber numberWithFloat:splitBillSlider.value]];
-    [personModel.allWhoPaidIndices replaceObjectAtIndex:transactionIndex withObject:[NSNumber numberWithInteger:iPayYouPaySwitch.selectedSegmentIndex]];
-    [personModel.allCategories replaceObjectAtIndex:transactionIndex withObject:[self pickerView:categoryPicker titleForRow:[categoryPicker selectedRowInComponent:0] forComponent:0]];
-    [personModel.allNotes replaceObjectAtIndex:transactionIndex withObject:notesField.text];
-    //[allPersonModels replaceObjectAtIndex:0 withObject:personModel]; // TODO: Make sure this is working. allPersonModels showed nil on 6/9/2013
+    
+    if (transactionIndex != -1) {
+        [personModel.allTotalBills replaceObjectAtIndex:transactionIndex withObject:[NSNumber numberWithFloat:[totalBillField.text floatValue]]];
+        [personModel.allIOUs replaceObjectAtIndex:transactionIndex withObject:[NSNumber numberWithFloat:[totalToBeAddedToTabLabel.text floatValue]]];
+        [personModel.allSplitFractions replaceObjectAtIndex:transactionIndex withObject:[NSNumber numberWithFloat:splitBillSlider.value]];
+        [personModel.allWhoPaidIndices replaceObjectAtIndex:transactionIndex withObject:[NSNumber numberWithInteger:iPayYouPaySwitch.selectedSegmentIndex]];
+        [personModel.allCategories replaceObjectAtIndex:transactionIndex withObject:[self pickerView:categoryPicker titleForRow:[categoryPicker selectedRowInComponent:0] forComponent:0]];
+        [personModel.allNotes replaceObjectAtIndex:transactionIndex withObject:notesField.text];
+    } else {
+        [personModel.allTotalBills addObject:[NSNumber numberWithFloat:[totalBillField.text floatValue]]];
+        [personModel.allIOUs addObject:[NSNumber numberWithFloat:[totalToBeAddedToTabLabel.text floatValue]]];
+        [personModel.allSplitFractions addObject:[NSNumber numberWithFloat:splitBillSlider.value]];
+        [personModel.allWhoPaidIndices addObject:[NSNumber numberWithInteger:iPayYouPaySwitch.selectedSegmentIndex]];
+        [personModel.allCategories addObject:[self pickerView:categoryPicker titleForRow:[categoryPicker selectedRowInComponent:0] forComponent:0]];
+        [personModel.allNotes addObject:notesField.text];
+    }
+
+    //[allPersonModels replaceObjectAtIndex:0 withObject:personModel]; // TODO: Make sure this is working and necessary. allPersonModels showed nil on 6/9/2013
 }
 
 - (void)didReceiveMemoryWarning
@@ -131,21 +154,10 @@
 
 - (IBAction)sliderValueDidChange:(UISlider *)sender
 {
-    float totalBillValue = [[totalBillField.text substringFromIndex:1] floatValue];
-    float totalToBeAddedToTabValue = totalBillValue * sender.value;
-    NSInteger iPayYouPay = iPayYouPaySwitch.selectedSegmentIndex;
-    if (iPayYouPay == 0) {
-        totalToBeAddedToTabLabel.text = [NSString stringWithFormat:@"%.2f", totalToBeAddedToTabValue];
-    }
-    else {
-        totalToBeAddedToTabLabel.text = [NSString stringWithFormat:@"%.2f", (totalToBeAddedToTabValue * -1)];
-    }
+    [self dismissKeyboardAndUpdateValues];
     
-    // Update the labels
-    float sliderValue = sender.value;
-    percentSplitLabel.text = [NSString stringWithFormat:@"%.0f%@", sliderValue * 100, @"%"];
-    themSplitValueLabel.text = [NSString stringWithFormat:@"%@%.2f", @"$", totalToBeAddedToTabValue];
-    meSplitValueLabel.text = [NSString stringWithFormat:@"%@%.2f", @"$", totalBillValue - totalToBeAddedToTabValue];
+    // Update the label
+    percentSplitLabel.text = [NSString stringWithFormat:@"%.0f%@", sender.value * 100, @"%"];
     
     // Reposition the numbers below
     /*CGRect sliderFrame = splitBillSlider.frame;
@@ -157,15 +169,9 @@
 
 - (IBAction)iPayYouPaySwitchChanged:(UISegmentedControl *)sender
 {
-    float totalBillValue = [[totalBillField.text substringFromIndex:1] floatValue];
-    float totalToBeAddedToTabValue = totalBillValue * splitBillSlider.value;
-    NSInteger iPayYouPay = sender.selectedSegmentIndex;
-    if (iPayYouPay == 0) {
-        totalToBeAddedToTabLabel.text = [NSString stringWithFormat:@"%.2f", totalToBeAddedToTabValue];
-    }
-    else {
-        totalToBeAddedToTabLabel.text = [NSString stringWithFormat:@"%.2f", (totalToBeAddedToTabValue * -1)];
-    }
+    [self dismissKeyboardAndUpdateValues];
+    [self updateSplitLabelColors];
+    [iPayYouPaySwitch drawRect:[sender frame]];
 }
 
 - (IBAction)categoryButtonClicked:(UIButton *)sender {
@@ -194,19 +200,26 @@
     [totalBillField resignFirstResponder];
     [notesField resignFirstResponder];
     
-    // Update total to be added to tab field
-    float totalBillValue = [[totalBillField.text substringFromIndex:1] floatValue];
-    float totalToBeAddedToTabValue = totalBillValue * splitBillSlider.value;
-    NSInteger iPayYouPay = iPayYouPaySwitch.selectedSegmentIndex;
-    if (iPayYouPay == 0) {
-        totalToBeAddedToTabLabel.text = [NSString stringWithFormat:@"%.2f", totalToBeAddedToTabValue];
+    float totalBillValue = [totalBillField.text floatValue];
+    float totalToBeAddedToTabValue;
+    float remainder;
+    if (iPayYouPaySwitch.selectedSegmentIndex == 0) {
+        totalToBeAddedToTabValue = totalBillValue * splitBillSlider.value;
+        remainder = totalBillValue - totalToBeAddedToTabValue;
+        themSplitValueLabel.text = [NSString stringWithFormat:@"%@%.2f", @"$", remainder];
+        meSplitValueLabel.text = [NSString stringWithFormat:@"%@%.2f", @"$", totalToBeAddedToTabValue];
+    } else {
+        totalToBeAddedToTabValue = totalBillValue * splitBillSlider.value * -1;
+        remainder = totalBillValue + totalToBeAddedToTabValue;
+        themSplitValueLabel.text = [NSString stringWithFormat:@"%@%.2f", @"$", totalToBeAddedToTabValue * -1];
+        meSplitValueLabel.text = [NSString stringWithFormat:@"%@%.2f", @"$", remainder];
     }
-    else {
-        totalToBeAddedToTabLabel.text = [NSString stringWithFormat:@"%.2f", (totalToBeAddedToTabValue * -1)];
-    }
-    themSplitValueLabel.text = [NSString stringWithFormat:@"%@%.2f", @"$", totalToBeAddedToTabValue];
-    meSplitValueLabel.text = [NSString stringWithFormat:@"%@%.2f", @"$", totalBillValue - totalToBeAddedToTabValue];
-
+    totalToBeAddedToTabLabel.text = [NSString stringWithFormat:@"%.2f", totalToBeAddedToTabValue];
+    
+    // Update the labels
+    percentSplitLabel.text = [NSString stringWithFormat:@"%.0f%@", splitBillSlider.value * 100, @"%"];
+    
+    [self updateSplitLabelColors];
 }
 
 #pragma mark - UIPickerViewDataSource and Delegate Methods
@@ -315,7 +328,7 @@
 
 #pragma mark - UISearchDisplayControllerDelegate
 
-//When the user taps the search bar, this means that the controller will begin searching.
+// When the user taps the search bar, this means that the controller will begin searching.
 - (void)searchDisplayControllerWillBeginSearch:(UISearchDisplayController *)controller {
     [personNameField setShowsCancelButton:YES animated:NO];
     for (UIView *subView in personNameField.subviews){
@@ -390,6 +403,20 @@
     // Remove duplicates
     NSSet *uniqueSet = [[NSSet setWithArray:personNames] allObjects];
     personNames = [[uniqueSet allObjects] mutableCopy];
+}
+
+# pragma mark - Convenience code
+
+- (void)updateSplitLabelColors
+{
+    if (iPayYouPaySwitch.selectedSegmentIndex == 0) {
+        meSplitValueLabel.textColor = red;
+        themSplitValueLabel.textColor = gray;
+    }
+    if (iPayYouPaySwitch.selectedSegmentIndex == 1) {
+        meSplitValueLabel.textColor = gray;
+        themSplitValueLabel.textColor = green;
+    }
 }
 
 @end
