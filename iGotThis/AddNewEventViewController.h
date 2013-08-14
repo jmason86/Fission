@@ -12,7 +12,7 @@
 
 @class AddNewEventViewController;
 
-@interface AddNewEventViewController : UIViewController <UIPickerViewDataSource, UIPickerViewDelegate, UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate, UISearchDisplayDelegate>
+@interface AddNewEventViewController : UIViewController <UIPickerViewDataSource, UIPickerViewDelegate, UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate, UISearchDisplayDelegate, UITextFieldDelegate>
 
 // Input to class
 @property (strong, nonatomic) NSMutableArray *allPersonModels; // From MasterViewController

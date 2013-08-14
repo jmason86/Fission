@@ -24,6 +24,7 @@
     UIColor *green;
     UIColor *red;
     UIColor *gray;
+    CGPoint notesOriginalCenter;
 }
 
 @synthesize allPersonModels, personModel, transactionIndex, personNameField, totalBillField, iPayYouPaySwitch, splitBillSlider, totalToBeAddedToTabLabel, categoryPicker, notesField, filteredNameListTable, categoryView, categoryButton, percentSplitLabel, meSplitValueLabel, themSplitValueLabel;
@@ -35,6 +36,18 @@
         // Custom initialization
     }
     return self;
+}
+
+- (void)viewDidLoad
+{
+    notesField.delegate = self;
+}
+
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewWillLayoutSubviews];
+    
+    notesOriginalCenter = notesField.center;
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -125,7 +138,6 @@
 {
     [self dismissKeyboardAndUpdateValues];
     personModel.personName = personNameField.placeholder;
-    [personModel totalUpIOUsForBalance];
     
     if (transactionIndex != -1) {
         [personModel.allTotalBills replaceObjectAtIndex:transactionIndex withObject:[NSNumber numberWithFloat:[totalBillField.text floatValue]]];
@@ -143,7 +155,7 @@
         [personModel.allNotes addObject:notesField.text];
     }
 
-    //[allPersonModels replaceObjectAtIndex:0 withObject:personModel]; // TODO: Make sure this is working and necessary. allPersonModels showed nil on 6/9/2013
+    [personModel totalUpIOUsForBalance];
 }
 
 - (void)didReceiveMemoryWarning
@@ -191,6 +203,40 @@
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
 {
     [self dismissKeyboardAndUpdateValues];
+}
+
+
+#pragma mark - UITextFieldDelegate Methods
+
+- (void)textFieldDidBeginEditing:(UITextField *)textField
+{
+    if (textField.tag == 1) {
+        [self slideForNotesEdit:self.view up:YES];
+        
+        //notesField.center = CGPointMake(notesOriginalCenter.x, notesOriginalCenter.y - 200.0);
+    }
+}
+
+- (void)textFieldDidEndEditing:(UITextField *)textField
+{
+    if (textField.tag == 1) {
+        [self slideForNotesEdit:self.view up:NO];
+        notesField.center = notesOriginalCenter;
+    }
+}
+
+- (void)slideForNotesEdit:(UIView *)view up:(BOOL)up
+{
+    const int movementDistance = 200;
+    const float animationDuration = 0.3f;
+    
+    int movement = (up ? -movementDistance : movementDistance);
+    
+    [UIView beginAnimations:@"notesSlideAnimation" context:nil];
+    [UIView setAnimationBeginsFromCurrentState:YES];
+    [UIView setAnimationDuration:animationDuration];
+    self.view.frame = CGRectOffset(self.view.frame, 0, movement);
+    [UIView commitAnimations];
 }
 
 - (void)dismissKeyboardAndUpdateValues
@@ -264,7 +310,7 @@
     if (isSearching && [filteredNames count]) {
         nameForRow = [filteredNames objectAtIndex:indexPath.row];
     } else {
-        nameForRow = [personNames objectAtIndex:indexPath.row];
+        //nameForRow = [personNames objectAtIndex:indexPath.row]; // TODO: Figure out why I ever did this in the first place. Causes first name in address book to pop up after selection has been made. 
     }
     cell.textLabel.text = nameForRow;
     
