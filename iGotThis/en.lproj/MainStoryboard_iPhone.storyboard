@@ -326,6 +326,17 @@
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" image="bkgd_screen.png" translatesAutoresizingMaskIntoConstraints="NO" id="KsR-yM-x9y"/>
+                            <textField autoresizesSubviews="NO" opaque="NO" clipsSubviews="YES" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Notes" minimumFontSize="17" background="bkgd_whitebox_113h.png" translatesAutoresizingMaskIntoConstraints="NO" id="C4r-4n-uGd">
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="90" id="ACe-Qv-p9e"/>
+                                </constraints>
+                                <nil key="textColor"/>
+                                <fontDescription key="fontDescription" name="Avenir-Medium" family="Avenir" pointSize="23"/>
+                                <textInputTraits key="textInputTraits" returnKeyType="done"/>
+                                <connections>
+                                    <action selector="dismissNotesFieldKeyboard:" destination="rf1-MN-pcG" eventType="editingDidEndOnExit" id="BiU-u7-52i"/>
+                                </connections>
+                            </textField>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="$0" textAlignment="center" adjustsFontSizeToFit="NO" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Xnw-VJ-12Q">
                                 <constraints>
                                     <constraint firstAttribute="height" constant="45" id="Q04-JY-ZxH"/>
@@ -417,13 +428,14 @@
                             </label>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vm8-z9-ZXQ">
                                 <subviews>
-                                    <pickerView contentMode="scaleAspectFill" translatesAutoresizingMaskIntoConstraints="NO" id="V0I-yg-ilA">
+                                    <pickerView contentMode="center" translatesAutoresizingMaskIntoConstraints="NO" id="V0I-yg-ilA">
                                         <rect key="contentStretch" x="0.0" y="0.0" width="1" height="0.49999999999999961"/>
                                     </pickerView>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                                 <constraints>
-                                    <constraint firstItem="V0I-yg-ilA" firstAttribute="leading" secondItem="vm8-z9-ZXQ" secondAttribute="leading" constant="200" id="Lpq-L1-hno"/>
+                                    <constraint firstItem="V0I-yg-ilA" firstAttribute="leading" secondItem="vm8-z9-ZXQ" secondAttribute="leading" type="default" id="Thl-gK-l10"/>
+                                    <constraint firstItem="V0I-yg-ilA" firstAttribute="trailing" secondItem="vm8-z9-ZXQ" secondAttribute="trailing" type="default" id="goS-sf-mFn"/>
                                     <constraint firstItem="V0I-yg-ilA" firstAttribute="top" secondItem="vm8-z9-ZXQ" secondAttribute="top" type="default" id="tfs-oH-cuh"/>
                                 </constraints>
                             </view>
@@ -451,28 +463,15 @@
                                 <color key="textColor" red="0.270588249" green="0.67058825489999996" blue="0.31764706970000001" alpha="1" colorSpace="deviceRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <textField opaque="NO" autoresizesSubviews="NO" clipsSubviews="YES" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Notes" minimumFontSize="17" background="bkgd_whitebox_113h.png" translatesAutoresizingMaskIntoConstraints="NO" id="C4r-4n-uGd">
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="90" id="ACe-Qv-p9e"/>
-                                </constraints>
-                                <nil key="textColor"/>
-                                <fontDescription key="fontDescription" name="Avenir-Medium" family="Avenir" pointSize="23"/>
-                                <textInputTraits key="textInputTraits" returnKeyType="done"/>
-                                <connections>
-                                    <action selector="dismissNotesFieldKeyboard:" destination="rf1-MN-pcG" eventType="editingDidEndOnExit" id="BiU-u7-52i"/>
-                                </connections>
-                            </textField>
                         </subviews>
                         <color key="backgroundColor" red="0.90980398654937744" green="0.92549026012420654" blue="0.92941182851791382" alpha="1" colorSpace="deviceRGB"/>
                         <constraints>
                             <constraint firstItem="pt3-BP-qAY" firstAttribute="top" secondItem="crZ-KE-M6m" secondAttribute="top" type="default" id="09n-8u-zfq"/>
-                            <constraint firstItem="vm8-z9-ZXQ" firstAttribute="leading" secondItem="VpE-6B-Pms" secondAttribute="leading" constant="-180" id="1E8-lt-nps"/>
                             <constraint firstItem="vfm-ZM-FgK" firstAttribute="top" secondItem="pt3-BP-qAY" secondAttribute="bottom" constant="8" symbolic="YES" type="default" id="21Q-qs-D5I"/>
                             <constraint firstItem="wio-vS-Vwf" firstAttribute="leading" secondItem="pt3-BP-qAY" secondAttribute="leading" type="default" id="2K4-at-m4l"/>
                             <constraint firstItem="C4r-4n-uGd" firstAttribute="leading" secondItem="VpE-6B-Pms" secondAttribute="leading" constant="20" symbolic="YES" type="default" id="2l8-k6-ea9"/>
                             <constraint firstItem="c7b-WQ-Crn" firstAttribute="centerX" secondItem="tX2-fS-QsZ" secondAttribute="centerX" type="default" id="3Oz-J4-tOd"/>
                             <constraint firstAttribute="trailing" secondItem="vfm-ZM-FgK" secondAttribute="trailing" constant="20" symbolic="YES" type="default" id="4IP-1n-D34"/>
-                            <constraint firstItem="vm8-z9-ZXQ" firstAttribute="top" secondItem="VpE-6B-Pms" secondAttribute="top" constant="297" id="4YM-ne-bdg"/>
                             <constraint firstAttribute="trailing" secondItem="Xnw-VJ-12Q" secondAttribute="trailing" constant="20" symbolic="YES" type="default" id="4z8-J7-5LE"/>
                             <constraint firstItem="tX2-fS-QsZ" firstAttribute="leading" secondItem="VpE-6B-Pms" secondAttribute="leading" constant="20" symbolic="YES" type="default" id="5og-79-zWb"/>
                             <constraint firstItem="Xnw-VJ-12Q" firstAttribute="leading" secondItem="VpE-6B-Pms" secondAttribute="leading" constant="20" symbolic="YES" type="default" id="7W4-gW-wbg"/>
@@ -486,20 +485,22 @@
                             <constraint firstItem="M1A-iJ-UCU" firstAttribute="trailing" secondItem="VpE-6B-Pms" secondAttribute="trailing" type="default" id="Kme-0r-rbp"/>
                             <constraint firstItem="pt3-BP-qAY" firstAttribute="baseline" secondItem="qip-Ts-FQi" secondAttribute="baseline" type="default" id="NxE-hx-2Cd"/>
                             <constraint firstAttribute="bottom" secondItem="C4r-4n-uGd" secondAttribute="bottom" constant="20" symbolic="YES" type="default" id="RPk-ka-BBF"/>
-                            <constraint firstAttribute="bottom" secondItem="vm8-z9-ZXQ" secondAttribute="bottom" constant="5" id="Rdb-e7-s5o"/>
                             <constraint firstItem="wio-vS-Vwf" firstAttribute="top" secondItem="c7b-WQ-Crn" secondAttribute="bottom" constant="8" symbolic="YES" type="default" id="SDu-QU-YTQ"/>
                             <constraint firstItem="M1A-iJ-UCU" firstAttribute="leading" secondItem="VpE-6B-Pms" secondAttribute="leading" type="default" id="Thy-i1-iie"/>
                             <constraint firstItem="KsR-yM-x9y" firstAttribute="leading" secondItem="VpE-6B-Pms" secondAttribute="leading" type="default" id="TpE-1f-fAf"/>
                             <constraint firstItem="KsR-yM-x9y" firstAttribute="top" secondItem="VpE-6B-Pms" secondAttribute="top" constant="-65" id="ZH6-LZ-FEA"/>
                             <constraint firstAttribute="centerX" secondItem="crZ-KE-M6m" secondAttribute="centerX" type="user" id="b3j-7o-Cxe"/>
+                            <constraint firstAttribute="trailing" secondItem="vm8-z9-ZXQ" secondAttribute="trailing" constant="20" symbolic="YES" type="default" id="cQu-dT-hQJ"/>
                             <constraint firstItem="lVa-WL-ZoP" firstAttribute="top" secondItem="VpE-6B-Pms" secondAttribute="top" constant="86" id="fbu-zC-oPq"/>
                             <constraint firstItem="C4r-4n-uGd" firstAttribute="top" secondItem="vfm-ZM-FgK" secondAttribute="bottom" constant="8" symbolic="YES" type="default" id="fxa-dp-Gii"/>
                             <constraint firstItem="crZ-KE-M6m" firstAttribute="top" secondItem="qip-Ts-FQi" secondAttribute="top" type="default" id="mK4-lu-E8t"/>
+                            <constraint firstItem="vm8-z9-ZXQ" firstAttribute="leading" secondItem="VpE-6B-Pms" secondAttribute="leading" constant="20" symbolic="YES" type="default" id="o62-bv-EvI"/>
+                            <constraint firstAttribute="bottom" secondItem="vm8-z9-ZXQ" secondAttribute="bottom" constant="23" id="oAU-HW-Rac"/>
                             <constraint firstItem="c7b-WQ-Crn" firstAttribute="centerX" secondItem="wio-vS-Vwf" secondAttribute="centerX" type="default" id="ql3-sR-NZp"/>
                             <constraint firstAttribute="trailing" secondItem="tX2-fS-QsZ" secondAttribute="trailing" constant="20" symbolic="YES" type="default" id="qyI-X7-ss4"/>
                             <constraint firstItem="Xnw-VJ-12Q" firstAttribute="top" secondItem="M1A-iJ-UCU" secondAttribute="bottom" constant="8" symbolic="YES" type="default" id="ser-9n-6Dh"/>
-                            <constraint firstAttribute="trailing" secondItem="vm8-z9-ZXQ" secondAttribute="trailing" constant="20" symbolic="YES" type="default" id="t81-ae-Zma"/>
                             <constraint firstItem="tX2-fS-QsZ" firstAttribute="top" secondItem="lVa-WL-ZoP" secondAttribute="bottom" constant="8" symbolic="YES" type="default" id="una-xW-FRv"/>
+                            <constraint firstItem="vm8-z9-ZXQ" firstAttribute="top" secondItem="VpE-6B-Pms" secondAttribute="top" constant="298" id="v0j-ua-t3M"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Add Event" id="mpa-3p-xCW">
@@ -553,6 +554,56 @@
         <image name="bkgd_whitebox_113h.png" width="300" height="113"/>
         <image name="icon_arrowdown.png" width="10" height="12"/>
     </resources>
+    <classes>
+        <class className="AddNewEventViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/AddNewEventViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="categoryButtonClicked:" candidateClass="UIButton"/>
+                <relationship kind="action" name="iPayYouPaySwitchChanged:" candidateClass="UISegmentedControl"/>
+                <relationship kind="action" name="sliderValueDidChange:" candidateClass="UISlider"/>
+                <relationship kind="outlet" name="categoryButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="categoryPicker" candidateClass="UIPickerView"/>
+                <relationship kind="outlet" name="categoryView" candidateClass="UIView"/>
+                <relationship kind="outlet" name="filteredNameListTable" candidateClass="UITableView"/>
+                <relationship kind="outlet" name="iPayYouPaySwitch" candidateClass="UISegmentedControl"/>
+                <relationship kind="outlet" name="meSplitValueLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="notesField" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="percentSplitLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="personNameField" candidateClass="UISearchBar"/>
+                <relationship kind="outlet" name="splitBillSlider" candidateClass="UISlider"/>
+                <relationship kind="outlet" name="themSplitValueLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="totalBillField" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="totalToBeAddedToTabLabel" candidateClass="UILabel"/>
+            </relationships>
+        </class>
+        <class className="DetailViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/DetailViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="addNewEventDone:" candidateClass="UIStoryboardSegue"/>
+                <relationship kind="outlet" name="themTotalLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="totalLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="transactionsTableView" candidateClass="UITableView"/>
+                <relationship kind="outlet" name="whoOwesWhoLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="youTotalLabel" candidateClass="UILabel"/>
+            </relationships>
+        </class>
+        <class className="MasterViewController" superclassName="UITableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/MasterViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="iPayTapped:" candidateClass="UIButton"/>
+                <relationship kind="action" name="uPayTapped:" candidateClass="UIButton"/>
+            </relationships>
+        </class>
+        <class className="NSLayoutConstraint" superclassName="NSObject">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/NSLayoutConstraint.h"/>
+        </class>
+        <class className="UIStoryboardSegue" superclassName="NSObject">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/UIStoryboardSegue.h"/>
+        </class>
+        <class className="WhoPaysSegmentedControl" superclassName="UISegmentedControl">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/WhoPaysSegmentedControl.h"/>
+        </class>
+    </classes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
         <simulatedOrientationMetrics key="orientation"/>
