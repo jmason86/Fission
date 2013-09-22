@@ -68,6 +68,7 @@
 		E4311C45179B04D400C5F444 /* Icon57x57.png in Resources */ = {isa = PBXBuildFile; fileRef = E4311C1D179B04D400C5F444 /* Icon57x57.png */; };
 		E4311C46179B04D400C5F444 /* Icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E4311C1E179B04D400C5F444 /* Icon@2x.png */; };
 		E4311C47179B04D400C5F444 /* Icon@2x114x114.png in Resources */ = {isa = PBXBuildFile; fileRef = E4311C1F179B04D400C5F444 /* Icon@2x114x114.png */; };
+		E445F50017EEC5AF00EEC95E /* MainStoryboard_iPhone4Inch.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E445F4FE17EEC5AF00EEC95E /* MainStoryboard_iPhone4Inch.storyboard */; };
 		E467682B1716764E00B39690 /* PersonModel.m in Sources */ = {isa = PBXBuildFile; fileRef = E467682A1716764E00B39690 /* PersonModel.m */; };
 		E499DAC8170645600050FC5E /* AddNewEventViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E499DAC7170645600050FC5E /* AddNewEventViewController.m */; };
 		E49A922B1705350400E1409A /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E49A922A1705350400E1409A /* UIKit.framework */; };
@@ -163,6 +164,7 @@
 		E4311C1D179B04D400C5F444 /* Icon57x57.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Icon57x57.png; sourceTree = "<group>"; };
 		E4311C1E179B04D400C5F444 /* Icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon@2x.png"; sourceTree = "<group>"; };
 		E4311C1F179B04D400C5F444 /* Icon@2x114x114.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon@2x114x114.png"; sourceTree = "<group>"; };
+		E445F4FF17EEC5AF00EEC95E /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/MainStoryboard_iPhone4Inch.storyboard; sourceTree = "<group>"; };
 		E46768291716764E00B39690 /* PersonModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PersonModel.h; sourceTree = "<group>"; };
 		E467682A1716764E00B39690 /* PersonModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PersonModel.m; sourceTree = "<group>"; };
 		E499DAC6170645600050FC5E /* AddNewEventViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddNewEventViewController.h; sourceTree = "<group>"; };
@@ -324,6 +326,7 @@
 			isa = PBXGroup;
 			children = (
 				E49A92421705350400E1409A /* MainStoryboard_iPhone.storyboard */,
+				E445F4FE17EEC5AF00EEC95E /* MainStoryboard_iPhone4Inch.storyboard */,
 				E49A92481705350400E1409A /* MasterViewController.h */,
 				E49A92491705350400E1409A /* MasterViewController.m */,
 				E499DAC6170645600050FC5E /* AddNewEventViewController.h */,
@@ -430,6 +433,11 @@
 			attributes = {
 				LastUpgradeCheck = 0460;
 				ORGANIZATIONNAME = Trinary;
+				TargetAttributes = {
+					E49A92261705350400E1409A = {
+						DevelopmentTeam = Y3EC579VUK;
+					};
+				};
 			};
 			buildConfigurationList = E49A92221705350400E1409A /* Build configuration list for PBXProject "Fission" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -506,6 +514,7 @@
 				E4311C3D179B04D400C5F444 /* btn_green_left_normal@2x.png in Resources */,
 				E4311C3E179B04D400C5F444 /* btn_PercentageSlider.png in Resources */,
 				E4311C3F179B04D400C5F444 /* btn_PercentageSlider@2x.png in Resources */,
+				E445F50017EEC5AF00EEC95E /* MainStoryboard_iPhone4Inch.storyboard in Resources */,
 				E4311C40179B04D400C5F444 /* btn_red_right_normal.png in Resources */,
 				E4311C41179B04D400C5F444 /* btn_red_right_normal@2x.png in Resources */,
 				E4311C42179B04D400C5F444 /* Icon-Small.png in Resources */,
@@ -581,6 +590,14 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
+		E445F4FE17EEC5AF00EEC95E /* MainStoryboard_iPhone4Inch.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				E445F4FF17EEC5AF00EEC95E /* en */,
+			);
+			name = MainStoryboard_iPhone4Inch.storyboard;
+			sourceTree = "<group>";
+		};
 		E49A92331705350400E1409A /* InfoPlist.strings */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -677,12 +694,14 @@
 		E49A92661705350400E1409A /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: James Mason (6A6Q73U8L6)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: James Mason (ZA86P8J6ZB)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "iGotThis/Fission-Prefix.pch";
 				INFOPLIST_FILE = "iGotThis/Fission-Info.plist";
 				PRODUCT_NAME = Fission;
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "844678E7-B7E0-4D7A-A196-680CD5DCB0E9";
+				PROVISIONING_PROFILE = "20A4E2FB-911B-4793-8E72-A81B6632F8CB";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "20A4E2FB-911B-4793-8E72-A81B6632F8CB";
 				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
 			};
@@ -691,12 +710,14 @@
 		E49A92671705350400E1409A /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: James Mason (Y3EC579VUK)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: James Mason (ZA86P8J6ZB)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "iGotThis/Fission-Prefix.pch";
 				INFOPLIST_FILE = "iGotThis/Fission-Info.plist";
 				PRODUCT_NAME = Fission;
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "E9B3C76F-966A-4305-BE83-0C689DB2C358";
+				PROVISIONING_PROFILE = "20A4E2FB-911B-4793-8E72-A81B6632F8CB";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "20A4E2FB-911B-4793-8E72-A81B6632F8CB";
 				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
 			};
