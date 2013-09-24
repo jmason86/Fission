@@ -394,9 +394,7 @@
     <resources>
         <image name="bkgd_CategorySelector.png" width="300" height="44"/>
         <image name="bkgd_UserList.png" width="320" height="65"/>
-        <image name="bkgd_UserList.png" width="320" height="65"/>
         <image name="bkgd_UserTotals_3up.png" width="320" height="66"/>
-        <image name="bkgd_screen.png" width="320" height="568"/>
         <image name="bkgd_screen.png" width="320" height="568"/>
         <image name="bkgd_whitebox_113h.png" width="300" height="113"/>
         <image name="icon_arrowdown.png" width="10" height="12"/>

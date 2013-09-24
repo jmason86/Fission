@@ -118,6 +118,9 @@
     [personModel.allSplitFractions addObject:[NSNumber numberWithFloat:splitBillSlider.value]];
     [personModel.allWhoPaidIndices addObject:[NSNumber numberWithInteger:iPayYouPaySwitch.selectedSegmentIndex]];
     [personModel.allCategories addObject:[self pickerView:categoryPicker titleForRow:[categoryPicker selectedRowInComponent:0] forComponent:0]];
+    if (!notesField.text) {
+        notesField.text = @" ";
+    }
     [personModel.allNotes addObject:notesField.text];
     
     if (indexOfExistingPerson < 0) {
@@ -355,7 +358,7 @@
     }
     
     [filteredNames removeAllObjects];
-    [self searchDisplayControllerWillEndSearch:nil];
+    //[self searchDisplayControllerWillEndSearch:nil];
 }
 
 #pragma mark - Filtering the name list
@@ -382,6 +385,17 @@
             [(UIButton*)subView setTitle:@"Done" forState:UIControlStateNormal];
         }
     }
+    
+    NSString *version = [[UIDevice currentDevice] systemVersion];
+    if ([version hasPrefix:@"7."]) {
+        for (UIView *subView in [[personNameField.subviews objectAtIndex:0] subviews]){
+            if([subView isKindOfClass:[UIButton class]]){
+                [(UIButton*)subView setTitle:@"Done" forState:UIControlStateNormal];
+            }
+        }
+
+    }
+    
     isSearching = YES;
 }
 
