@@ -215,8 +215,6 @@
 {
     if (textField.tag == 1) {
         [self slideForNotesEdit:self.view up:YES];
-        
-        //notesField.center = CGPointMake(notesOriginalCenter.x, notesOriginalCenter.y - 200.0);
     }
 }
 
@@ -450,6 +448,12 @@
             ABRecordRef contactPerson = (__bridge ABRecordRef)allContacts[i];
             NSString *firstName = (__bridge_transfer NSString *)ABRecordCopyValue(contactPerson, kABPersonFirstNameProperty);
             NSString *lastName =  (__bridge_transfer NSString *)ABRecordCopyValue(contactPerson, kABPersonLastNameProperty);
+            if (!firstName) {
+                firstName = @"";
+            }
+            if (!lastName) {
+                lastName = @"";
+            }
             NSString *fullName = [NSString stringWithFormat:@"%@ %@", firstName, lastName];
             [personNames addObject:fullName];
         }
@@ -461,7 +465,7 @@
     }
     
     // Remove duplicates
-    NSSet *uniqueSet = [[NSSet setWithArray:personNames] allObjects];
+    NSSet *uniqueSet = [NSSet setWithArray:personNames];
     personNames = [[uniqueSet allObjects] mutableCopy];
 }
 
