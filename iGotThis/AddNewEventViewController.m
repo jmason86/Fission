@@ -377,6 +377,7 @@
 
 // When the user taps the search bar, this means that the controller will begin searching.
 - (void)searchDisplayControllerWillBeginSearch:(UISearchDisplayController *)controller {
+    // Replace cancel button with "Done" in iOS6
     [personNameField setShowsCancelButton:YES animated:NO];
     for (UIView *subView in personNameField.subviews){
         if([subView isKindOfClass:[UIButton class]]){
@@ -384,6 +385,7 @@
         }
     }
     
+    // Replace cancel button with "Done" in iOS7
     NSString *version = [[UIDevice currentDevice] systemVersion];
     if ([version hasPrefix:@"7."]) {
         for (UIView *subView in [[personNameField.subviews objectAtIndex:0] subviews]){
@@ -391,7 +393,10 @@
                 [(UIButton*)subView setTitle:@"Done" forState:UIControlStateNormal];
             }
         }
-
+    }
+    
+    if (personNameField.placeholder && ![personNameField.placeholder isEqualToString: @"Person's Name"]) {
+        personNameField.text = personNameField.placeholder;
     }
     
     isSearching = YES;
