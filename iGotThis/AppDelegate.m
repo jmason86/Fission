@@ -12,6 +12,7 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+    NSString *version = [[UIDevice currentDevice] systemVersion];
     if(UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone){
         UIStoryboard *storyBoard;
         
@@ -19,10 +20,16 @@
         CGFloat scale = [UIScreen mainScreen].scale;
         result = CGSizeMake(result.width * scale, result.height * scale);
         
-        if(result.height == 1136){
+        if(result.height == 1136){ // 4" iPhone display
             storyBoard = [UIStoryboard storyboardWithName:@"MainStoryboard_iPhone4Inch" bundle:nil];
             UIViewController *initViewController = [storyBoard instantiateInitialViewController];
             [self.window setRootViewController:initViewController];
+        } else { // 3.5" iPhone display
+            if ([version floatValue] >= 7.0) {
+                storyBoard = [UIStoryboard storyboardWithName:@"MainStoryboard_iPhone3.5Inch_iOS7" bundle:nil];
+                UIViewController *initViewController = [storyBoard instantiateInitialViewController];
+                [self.window setRootViewController:initViewController];
+            }
         }
     }
     

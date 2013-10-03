@@ -89,6 +89,7 @@
 		E49A92571705350400E1409A /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E49A922C1705350400E1409A /* Foundation.framework */; };
 		E49A925F1705350400E1409A /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = E49A925D1705350400E1409A /* InfoPlist.strings */; };
 		E49A92621705350400E1409A /* iGotThisTests.m in Sources */ = {isa = PBXBuildFile; fileRef = E49A92611705350400E1409A /* iGotThisTests.m */; };
+		E4A1F4D117FD2CC300ECA3E4 /* MainStoryboard_iPhone3.5Inch_iOS7.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E4A1F4CF17FD2CC300ECA3E4 /* MainStoryboard_iPhone3.5Inch_iOS7.storyboard */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -194,6 +195,7 @@
 		E49A925E1705350400E1409A /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		E49A92601705350400E1409A /* iGotThisTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = iGotThisTests.h; sourceTree = "<group>"; };
 		E49A92611705350400E1409A /* iGotThisTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = iGotThisTests.m; sourceTree = "<group>"; };
+		E4A1F4D017FD2CC300ECA3E4 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/MainStoryboard_iPhone3.5Inch_iOS7.storyboard; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -326,6 +328,7 @@
 			isa = PBXGroup;
 			children = (
 				E49A92421705350400E1409A /* MainStoryboard_iPhone.storyboard */,
+				E4A1F4CF17FD2CC300ECA3E4 /* MainStoryboard_iPhone3.5Inch_iOS7.storyboard */,
 				E445F4FE17EEC5AF00EEC95E /* MainStoryboard_iPhone4Inch.storyboard */,
 				E49A92481705350400E1409A /* MasterViewController.h */,
 				E49A92491705350400E1409A /* MasterViewController.m */,
@@ -348,13 +351,13 @@
 			children = (
 				E4311BF7179B04D400C5F444 /* Fission App Assets */,
 				E4075DEC1791F869009E4FD1 /* CategoryIcons 144px */,
+				E49A92391705350400E1409A /* AppDelegate.h */,
+				E49A923A1705350400E1409A /* AppDelegate.m */,
 				E4311BF5179AF8B600C5F444 /* Icon57x57.png */,
 				E4311BF3179AF8AF00C5F444 /* Icon@2x114x114.png */,
 				E4075DD1178A342F009E4FD1 /* bkgd_whitebox_113h.png */,
 				E4075DD51791E244009E4FD1 /* UISlider_triangle.png */,
 				E49A92451705350400E1409A /* MainStoryboard_iPad.storyboard */,
-				E49A92391705350400E1409A /* AppDelegate.h */,
-				E49A923A1705350400E1409A /* AppDelegate.m */,
 				E49A92321705350400E1409A /* Fission-Info.plist */,
 				E49A92331705350400E1409A /* InfoPlist.strings */,
 				E49A92361705350400E1409A /* main.m */,
@@ -508,6 +511,7 @@
 				E4311C37179B04D400C5F444 /* bkgd_whitebox_113h@2x.png in Resources */,
 				E4311C38179B04D400C5F444 /* btn_gray_left_normal.png in Resources */,
 				E4311C39179B04D400C5F444 /* btn_gray_left_normal@2x.png in Resources */,
+				E4A1F4D117FD2CC300ECA3E4 /* MainStoryboard_iPhone3.5Inch_iOS7.storyboard in Resources */,
 				E4311C3A179B04D400C5F444 /* btn_gray_right_normal.png in Resources */,
 				E4311C3B179B04D400C5F444 /* btn_gray_right_normal@2x.png in Resources */,
 				E4311C3C179B04D400C5F444 /* btn_green_left_normal.png in Resources */,
@@ -628,6 +632,14 @@
 				E49A925E1705350400E1409A /* en */,
 			);
 			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		E4A1F4CF17FD2CC300ECA3E4 /* MainStoryboard_iPhone3.5Inch_iOS7.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				E4A1F4D017FD2CC300ECA3E4 /* en */,
+			);
+			name = MainStoryboard_iPhone3.5Inch_iOS7.storyboard;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
