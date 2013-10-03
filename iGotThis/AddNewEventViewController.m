@@ -253,15 +253,15 @@
     float totalToBeAddedToTabValue;
     float remainder;
     if (iPayYouPaySwitch.selectedSegmentIndex == 0) {
-        totalToBeAddedToTabValue = totalBillValue * splitBillSlider.value;
+        totalToBeAddedToTabValue = round(totalBillValue * splitBillSlider.value);
         remainder = totalBillValue - totalToBeAddedToTabValue;
-        themSplitValueLabel.text = [NSString stringWithFormat:@"%@%.2f", @"$", remainder];
-        meSplitValueLabel.text = [NSString stringWithFormat:@"%@%.2f", @"$", totalToBeAddedToTabValue];
+        themSplitValueLabel.text = [NSString stringWithFormat:@"%@%.0f", @"$", remainder];
+        meSplitValueLabel.text = [NSString stringWithFormat:@"%@%.0f", @"$", totalToBeAddedToTabValue];
     } else {
         totalToBeAddedToTabValue = totalBillValue * splitBillSlider.value * -1;
         remainder = totalBillValue + totalToBeAddedToTabValue;
-        themSplitValueLabel.text = [NSString stringWithFormat:@"%@%.2f", @"$", totalToBeAddedToTabValue * -1];
-        meSplitValueLabel.text = [NSString stringWithFormat:@"%@%.2f", @"$", remainder];
+        themSplitValueLabel.text = [NSString stringWithFormat:@"%@%.0f", @"$", totalToBeAddedToTabValue * -1];
+        meSplitValueLabel.text = [NSString stringWithFormat:@"%@%.0f", @"$", remainder];
     }
     totalToBeAddedToTabLabel.text = [NSString stringWithFormat:@"%.2f", totalToBeAddedToTabValue];
     
